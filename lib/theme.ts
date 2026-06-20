@@ -7,6 +7,7 @@ const DARK: Theme = {
   mode: "dark",
   canvas: "#0d1117", // assumed GitHub bg (for reference, not painted)
   panel: "#161b22", // canvas.subtle — the "Box" surface
+  panelTop: "#1c232e", // slightly lighter panel top for a subtle sheen
   inset: "#0d1117", // canvas.default — nested wells
   insetAlt: "#010409", // canvas.inset — deepest
   border: "#30363d", // border.default
@@ -31,6 +32,7 @@ const LIGHT: Theme = {
   mode: "light",
   canvas: "#ffffff",
   panel: "#f6f8fa", // canvas.subtle
+  panelTop: "#ffffff", // lighter panel top for a subtle sheen
   inset: "#ffffff", // canvas.default
   insetAlt: "#eaeef2",
   border: "#d0d7de", // border.default

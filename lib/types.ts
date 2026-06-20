@@ -49,6 +49,7 @@ export interface Theme {
   mode: ThemeMode;
   canvas: string;
   panel: string;
+  panelTop: string;
   inset: string;
   insetAlt: string;
   border: string;

@@ -17,7 +17,13 @@ export function box(t: Theme, { title, icon, count }: BoxOpts = {}, ...children:
   const header =
     title &&
     hbox(
-      { alignItems: "center", justifyContent: "space-between", marginBottom: 14 },
+      {
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginBottom: 14,
+        paddingBottom: 13,
+        borderBottom: `1px solid ${t.borderMuted}`,
+      },
       hbox(
         { alignItems: "center", gap: 9 },
         icon || null,
@@ -27,7 +33,14 @@ export function box(t: Theme, { title, icon, count }: BoxOpts = {}, ...children:
     );
 
   return vbox(
-    { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 18, boxShadow: t.shadow },
+    {
+      backgroundColor: t.panel,
+      backgroundImage: `linear-gradient(180deg, ${t.panelTop}, ${t.panel})`,
+      border: `1px solid ${t.border}`,
+      borderRadius: 12,
+      padding: 18,
+      boxShadow: t.shadow,
+    },
     header,
     ...children
   );

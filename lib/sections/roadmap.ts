@@ -1,5 +1,5 @@
 import { vbox, hbox, text } from "../h.js";
-import { box, dot, iconTile } from "../ui.js";
+import { box, dot, iconTile, tint } from "../ui.js";
 import { icons } from "../icons.js";
 import type { El, Item, ProjectConfig, Theme } from "../types.js";
 
@@ -19,7 +19,8 @@ const column = (t: Theme, label: string, color: string, items: Item[]): El =>
       flexGrow: 1,
       minWidth: 0,
       gap: 8,
-      background: t.inset,
+      backgroundColor: t.inset,
+      backgroundImage: `linear-gradient(180deg, ${tint(color, 0.1)}, ${tint(color, 0)} 48%)`,
       border: `1px solid ${t.borderMuted}`,
       borderTop: `2px solid ${color}`,
       borderRadius: 10,
