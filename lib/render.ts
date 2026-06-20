@@ -1,16 +1,16 @@
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
-import { vbox, hbox, text } from "./h";
-import { resolveTheme, FONT_FAMILY } from "./theme";
-import { loadFonts } from "./fonts";
-import { twoCol } from "./ui";
-import { header } from "./sections/header";
-import { dependencies } from "./sections/dependencies";
-import { timeline } from "./sections/timeline";
-import { products } from "./sections/products";
-import { features } from "./sections/features";
-import { roadmap } from "./sections/roadmap";
-import type { El, ProjectConfig, Rendered, RenderOpts, Theme } from "./types";
+import { vbox, hbox, text } from "./h.js";
+import { resolveTheme, FONT_FAMILY } from "./theme.js";
+import { loadFonts } from "./fonts.js";
+import { twoCol } from "./ui.js";
+import { header } from "./sections/header.js";
+import { dependencies } from "./sections/dependencies.js";
+import { timeline } from "./sections/timeline.js";
+import { products } from "./sections/products.js";
+import { features } from "./sections/features.js";
+import { roadmap } from "./sections/roadmap.js";
+import type { El, ProjectConfig, Rendered, RenderOpts, Theme } from "./types.js";
 
 type SatoriNode = Parameters<typeof satori>[0];
 type SatoriFonts = Parameters<typeof satori>[1]["fonts"];

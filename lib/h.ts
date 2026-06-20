@@ -1,5 +1,5 @@
 // Tiny hyperscript helper producing the plain-object element tree satori expects.
-import type { El } from "./types";
+import type { El } from "./types.js";
 
 type Style = Record<string, unknown>;
 type Props = Record<string, unknown> & { style?: Style };

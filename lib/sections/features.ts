@@ -1,7 +1,7 @@
-import { h, vbox, hbox, text } from "../h";
-import { box, iconTile } from "../ui";
-import { icons } from "../icons";
-import type { El, ProjectConfig, Theme } from "../types";
+import { h, vbox, hbox, text } from "../h.js";
+import { box, iconTile } from "../ui.js";
+import { icons } from "../icons.js";
+import type { El, ProjectConfig, Theme } from "../types.js";
 
 export function features(t: Theme, cfg: ProjectConfig): El | null {
   if (!cfg.features.length) return null;

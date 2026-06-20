@@ -1,7 +1,7 @@
 // GitHub Primer color tokens so the card blends into a README as if it were a
 // first-party GitHub surface. The outer background is transparent (see render.ts)
 // so the gaps between panels show the viewer's real GitHub canvas in any theme.
-import type { Theme, ThemeMode } from "./types";
+import type { Theme, ThemeMode } from "./types.js";
 
 const DARK: Theme = {
   mode: "dark",

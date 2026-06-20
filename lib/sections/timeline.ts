@@ -1,7 +1,7 @@
-import { h, vbox, hbox, text } from "../h";
-import { box, iconTile } from "../ui";
-import { icons } from "../icons";
-import type { El, ProjectConfig, Theme } from "../types";
+import { h, vbox, hbox, text } from "../h.js";
+import { box, iconTile } from "../ui.js";
+import { icons } from "../icons.js";
+import type { El, ProjectConfig, Theme } from "../types.js";
 
 // Horizontal milestone rail: a thin baseline through evenly spaced nodes,
 // date above each, label below. Completed nodes are filled, upcoming is a ring.

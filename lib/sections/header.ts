@@ -1,7 +1,7 @@
-import { vbox, hbox, text } from "../h";
-import { tint } from "../theme";
-import { icons } from "../icons";
-import type { El, ProjectConfig, Theme } from "../types";
+import { vbox, hbox, text } from "../h.js";
+import { tint } from "../theme.js";
+import { icons } from "../icons.js";
+import type { El, ProjectConfig, Theme } from "../types.js";
 
 type IconFn = (o?: { size?: number; color?: string }) => El;
 

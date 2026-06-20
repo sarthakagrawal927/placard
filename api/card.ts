@@ -1,7 +1,7 @@
-import { loadConfig, ConfigError } from "../lib/config";
-import { renderCard } from "../lib/render";
-import { renderError } from "../lib/error-card";
-import type { Format, Req, Res, ThemeMode } from "../lib/types";
+import { loadConfig, ConfigError } from "../lib/config.js";
+import { renderCard } from "../lib/render.js";
+import { renderError } from "../lib/error-card.js";
+import type { Format, Req, Res, ThemeMode } from "../lib/types.js";
 
 const clamp = (n: number, lo: number, hi: number): number => Math.max(lo, Math.min(hi, n));
 

@@ -3,9 +3,9 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { normalize } from "../lib/config";
-import { renderCard } from "../lib/render";
-import type { Format, ThemeMode } from "../lib/types";
+import { normalize } from "../lib/config.js";
+import { renderCard } from "../lib/render.js";
+import type { Format, ThemeMode } from "../lib/types.js";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const file = process.argv[2] ?? "examples/saas-maker.json";

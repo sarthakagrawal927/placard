@@ -1,7 +1,7 @@
-import { vbox, hbox, text } from "../h";
-import { box, dot, iconTile } from "../ui";
-import { icons } from "../icons";
-import type { El, Item, ProjectConfig, Theme } from "../types";
+import { vbox, hbox, text } from "../h.js";
+import { box, dot, iconTile } from "../ui.js";
+import { icons } from "../icons.js";
+import type { El, Item, ProjectConfig, Theme } from "../types.js";
 
 type RoadmapKey = "planned" | "todo" | "deferred" | "blocked";
 

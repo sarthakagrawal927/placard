@@ -1,9 +1,9 @@
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
-import { vbox, text } from "./h";
-import { resolveTheme, FONT_FAMILY } from "./theme";
-import { loadFonts } from "./fonts";
-import type { El, Format, Rendered, ThemeMode } from "./types";
+import { vbox, text } from "./h.js";
+import { resolveTheme, FONT_FAMILY } from "./theme.js";
+import { loadFonts } from "./fonts.js";
+import type { El, Format, Rendered, ThemeMode } from "./types.js";
 
 type SatoriNode = Parameters<typeof satori>[0];
 type SatoriFonts = Parameters<typeof satori>[1]["fonts"];

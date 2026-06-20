@@ -1,7 +1,7 @@
 // Inline SVG icons. Satori renders svg/path nodes directly, so each icon is a
 // plain element tree. `d` paths are 24x24 (lucide-style), recolored via stroke.
-import { h } from "./h";
-import type { El } from "./types";
+import { h } from "./h.js";
+import type { El } from "./types.js";
 
 interface IconOpts {
   size?: number;

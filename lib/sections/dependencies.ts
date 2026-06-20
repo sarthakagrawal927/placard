@@ -1,7 +1,7 @@
-import { vbox, hbox, text } from "../h";
-import { box, tag, dot, iconTile } from "../ui";
-import { icons } from "../icons";
-import type { El, Item, ProjectConfig, Theme } from "../types";
+import { vbox, hbox, text } from "../h.js";
+import { box, tag, dot, iconTile } from "../ui.js";
+import { icons } from "../icons.js";
+import type { El, Item, ProjectConfig, Theme } from "../types.js";
 
 const group = (t: Theme, label: string, color: string, items: Item[]): El | null =>
   items.length

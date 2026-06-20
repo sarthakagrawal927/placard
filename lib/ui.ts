@@ -1,7 +1,7 @@
 // Reusable building blocks styled to read as native GitHub surfaces.
-import { h, vbox, hbox, text } from "./h";
-import { FONT_FAMILY, tint } from "./theme";
-import type { El, Theme } from "./types";
+import { h, vbox, hbox, text } from "./h.js";
+import { FONT_FAMILY, tint } from "./theme.js";
+import type { El, Theme } from "./types.js";
 
 type Child = El | string | null | undefined | false;
 type Style = Record<string, unknown>;

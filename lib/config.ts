@@ -1,6 +1,6 @@
 // Fetch + normalize a project.json into the shape every section renderer expects.
 // Source is a raw URL (?src=) so any repo can host its own config.
-import type { Item, ProjectConfig, ThemeMode } from "./types";
+import type { Item, ProjectConfig, ThemeMode } from "./types.js";
 
 const MAX_BYTES = 256 * 1024;
 
