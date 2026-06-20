@@ -38,7 +38,7 @@ function buildTree(t: Theme, cfg: ProjectConfig, width: number): El {
 
   // Transparent outer: the gaps show the viewer's real GitHub canvas, so the
   // card blends into any theme (dark / dimmed / light / high-contrast).
-  return vbox({ width, padding: PAD, paddingTop: 6, gap: 14, fontFamily: FONT_FAMILY }, ...sections, footer);
+  return vbox({ width, padding: PAD, paddingTop: 6, gap: 12, fontFamily: FONT_FAMILY }, ...sections, footer);
 }
 
 export async function renderCard(cfg: ProjectConfig, opts: RenderOpts = {}): Promise<Rendered> {

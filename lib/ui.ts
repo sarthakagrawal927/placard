@@ -17,17 +17,17 @@ export function box(t: Theme, { title, icon, count }: BoxOpts = {}, ...children:
   const header =
     title &&
     hbox(
-      { alignItems: "center", justifyContent: "space-between", marginBottom: 16 },
+      { alignItems: "center", justifyContent: "space-between", marginBottom: 14 },
       hbox(
-        { alignItems: "center", gap: 10 },
+        { alignItems: "center", gap: 9 },
         icon || null,
-        text(title, { fontSize: 15, fontWeight: 600, color: t.text, letterSpacing: 0.1 })
+        text(title, { fontSize: 14, fontWeight: 600, color: t.text, letterSpacing: 0.1 })
       ),
       count != null ? countPill(t, count) : null
     );
 
   return vbox(
-    { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 20 },
+    { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 18, boxShadow: t.shadow },
     header,
     ...children
   );
@@ -64,13 +64,13 @@ export function label(t: Theme, value: string, color: string): El {
 // Neutral topic-tag chip (dependencies).
 export function tag(t: Theme, value: string): El {
   return text(value, {
-    fontSize: 13.5,
+    fontSize: 13,
     fontWeight: 500,
     color: t.text,
     background: t.inset,
     border: `1px solid ${t.border}`,
-    borderRadius: 8,
-    padding: "5px 11px",
+    borderRadius: 7,
+    padding: "4px 10px",
     lineHeight: 1.3,
   });
 }
@@ -102,7 +102,7 @@ export function paragraph(t: Theme, value: string, style: Style = {}): El {
 
 export function twoCol(left: El, right: El, gap = 16): El {
   return hbox(
-    { gap, width: "100%", alignItems: "stretch" },
+    { gap, width: "100%", alignItems: "flex-start" },
     h("div", { style: { display: "flex", flexBasis: 0, flexGrow: 1, minWidth: 0 } }, left),
     h("div", { style: { display: "flex", flexBasis: 0, flexGrow: 1, minWidth: 0 } }, right)
   );

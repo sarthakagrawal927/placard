@@ -16,6 +16,7 @@ const DARK: Theme = {
   subtle: "#6e7681", // fg.subtle (tertiary)
   accent: "#2f81f7", // accent.fg
   accentEmphasis: "#388bfd",
+  shadow: "0 1px 0 rgba(1,4,9,0.55), 0 2px 6px rgba(1,4,9,0.4)",
   status: {
     done: "#3fb950", // success.fg
     planned: "#2f81f7", // accent.fg
@@ -39,6 +40,7 @@ const LIGHT: Theme = {
   subtle: "#6e7781", // fg.subtle
   accent: "#0969da", // accent.fg
   accentEmphasis: "#0860ca",
+  shadow: "0 1px 0 rgba(31,35,40,0.04), 0 1px 3px rgba(31,35,40,0.08)",
   status: {
     done: "#1a7f37", // success.fg
     planned: "#0969da", // accent.fg

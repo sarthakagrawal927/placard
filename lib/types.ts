@@ -58,6 +58,7 @@ export interface Theme {
   subtle: string;
   accent: string;
   accentEmphasis: string;
+  shadow: string;
   status: {
     done: string;
     planned: string;

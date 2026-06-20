@@ -7,9 +7,9 @@ type IconFn = (o?: { size?: number; color?: string }) => El;
 
 const linkBtn = (t: Theme, icon: IconFn, labelText: string): El =>
   hbox(
-    { alignItems: "center", gap: 7, background: t.inset, border: `1px solid ${t.border}`, borderRadius: 6, padding: "6px 12px" },
-    icon({ size: 15, color: t.muted }),
-    text(labelText, { fontSize: 14, fontWeight: 500, color: t.text })
+    { alignItems: "center", gap: 6, background: t.inset, border: `1px solid ${t.border}`, borderRadius: 6, padding: "5px 11px" },
+    icon({ size: 14, color: t.muted }),
+    text(labelText, { fontSize: 13, fontWeight: 500, color: t.text })
   );
 
 export function header(t: Theme, cfg: ProjectConfig): El {
@@ -24,29 +24,29 @@ export function header(t: Theme, cfg: ProjectConfig): El {
     {
       alignItems: "center",
       justifyContent: "center",
-      width: 60,
-      height: 60,
-      borderRadius: 14,
-      background: tint(t.accent, t.mode === "light" ? 0.12 : 0.18),
+      width: 52,
+      height: 52,
+      borderRadius: 13,
+      backgroundImage: `linear-gradient(135deg, ${tint(t.accent, 0.28)}, ${tint(t.accent, 0.08)})`,
       border: `1px solid ${tint(t.accent, 0.45)}`,
       flexShrink: 0,
     },
-    text(initial, { fontSize: 32, fontWeight: 800, color: t.accent })
+    text(initial, { fontSize: 27, fontWeight: 800, color: t.accent })
   );
 
   return vbox(
-    { gap: 16 },
+    { gap: 13 },
     hbox(
-      { alignItems: "center", gap: 18 },
+      { alignItems: "center", gap: 15 },
       monogram,
       vbox(
-        { gap: 3, flexGrow: 1, minWidth: 0 },
-        text(cfg.name, { fontSize: 42, fontWeight: 800, color: t.text, letterSpacing: -0.8, lineHeight: 1.05 }),
-        cfg.tagline ? text(cfg.tagline, { fontSize: 18, fontWeight: 600, color: t.accent }) : null
+        { gap: 2, flexGrow: 1, minWidth: 0 },
+        text(cfg.name, { fontSize: 37, fontWeight: 800, color: t.text, letterSpacing: -1, lineHeight: 1.05 }),
+        cfg.tagline ? text(cfg.tagline, { fontSize: 16, fontWeight: 600, color: t.accent }) : null
       )
     ),
-    cfg.why ? text(cfg.why, { fontSize: 16.5, lineHeight: 1.6, color: t.muted, maxWidth: 880 }) : null,
-    links.length ? hbox({ gap: 9, flexWrap: "wrap" }, ...links) : null
+    cfg.why ? text(cfg.why, { fontSize: 15, lineHeight: 1.55, color: t.muted, maxWidth: 860 }) : null,
+    links.length ? hbox({ gap: 8, flexWrap: "wrap" }, ...links) : null
   );
 }
 

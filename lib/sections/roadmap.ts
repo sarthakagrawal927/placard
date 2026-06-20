@@ -14,26 +14,44 @@ const COLUMNS: { key: RoadmapKey; label: string; status: keyof Theme["status"] }
 
 const column = (t: Theme, label: string, color: string, items: Item[]): El =>
   vbox(
-    { flexBasis: 0, flexGrow: 1, minWidth: 0, gap: 9, background: t.inset, border: `1px solid ${t.borderMuted}`, borderRadius: 10, padding: 13 },
+    {
+      flexBasis: 0,
+      flexGrow: 1,
+      minWidth: 0,
+      gap: 8,
+      background: t.inset,
+      border: `1px solid ${t.borderMuted}`,
+      borderTop: `2px solid ${color}`,
+      borderRadius: 10,
+      padding: 12,
+    },
     hbox(
-      { alignItems: "center", gap: 8, marginBottom: 1 },
-      dot(color, 9),
-      text(label, { fontSize: 13.5, fontWeight: 600, color: t.text, flexGrow: 1 }),
-      text(String(items.length), { fontSize: 12, fontWeight: 600, color: t.subtle })
+      { alignItems: "center", gap: 7, marginBottom: 2 },
+      dot(color, 8),
+      text(label, { fontSize: 13, fontWeight: 600, color: t.text, flexGrow: 1 }),
+      text(String(items.length), {
+        fontSize: 11.5,
+        fontWeight: 600,
+        color: t.muted,
+        background: t.panel,
+        borderRadius: 999,
+        padding: "0px 7px",
+        lineHeight: 1.7,
+      })
     ),
     ...(items.length
       ? items.map((it) =>
           text(it.label, {
-            fontSize: 13.5,
+            fontSize: 13,
             color: t.muted,
             lineHeight: 1.4,
             background: t.panel,
             border: `1px solid ${t.borderMuted}`,
-            borderRadius: 8,
-            padding: "8px 11px",
+            borderRadius: 7,
+            padding: "7px 10px",
           })
         )
-      : [text("—", { fontSize: 13.5, color: t.subtle, padding: "2px 0" })])
+      : [text("—", { fontSize: 13, color: t.subtle, padding: "2px 0" })])
   );
 
 export function roadmap(t: Theme, cfg: ProjectConfig): El | null {
