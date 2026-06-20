@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://placard.vercel.app/schema/project.schema.json",
+  "title": "Placard project.json",
+  "description": "Data that placard renders into a project-overview card.",
+  "type": "object",
+  "required": ["name"],
+  "additionalProperties": true,
+  "definitions": {
+    "item": {
+      "oneOf": [
+        { "type": "string" },
+        {
+          "type": "object",
+          "required": ["label"],
+          "properties": {
+            "label": { "type": "string" },
+            "note": { "type": "string" },
+            "url": { "type": "string", "format": "uri" }
+          }
+        }
+      ]
+    },
+    "itemList": { "type": "array", "items": { "$ref": "#/definitions/item" } }
+  },
+  "properties": {
+    "name": { "type": "string", "description": "Project name (large title)." },
+    "tagline": { "type": "string", "description": "One-line accent subtitle." },
+    "why": { "type": "string", "description": "What the project is and why it exists (alias: description)." },
+    "description": { "type": "string" },
+    "links": {
+      "type": "object",
+      "properties": {
+        "repo": { "type": "string", "format": "uri" },
+        "site": { "type": "string", "format": "uri" },
+        "homepage": { "type": "string", "format": "uri" },
+        "docs": { "type": "string", "format": "uri" }
+      }
+    },
+    "theme": {
+      "type": "object",
+      "properties": {
+        "accent": { "type": "string", "pattern": "^#[0-9a-fA-F]{3,8}$", "description": "Hex accent color." },
+        "mode": { "enum": ["dark", "light"], "description": "Default mode when no ?theme= is requested." }
+      }
+    },
+    "dependencies": {
+      "type": "object",
+      "properties": {
+        "external": { "$ref": "#/definitions/itemList" },
+        "internal": { "$ref": "#/definitions/itemList" }
+      }
+    },
+    "timeline": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": { "type": "string", "description": "Short label, e.g. 2026-06." },
+          "label": { "type": "string" },
+          "note": { "type": "string" },
+          "done": { "type": "boolean", "description": "false renders a hollow (upcoming) milestone." }
+        }
+      }
+    },
+    "products": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "desc": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "status": { "type": "string", "description": "Small pill, e.g. live / beta." }
+        }
+      }
+    },
+    "features": { "$ref": "#/definitions/itemList", "description": "Shipped / done items (alias: done)." },
+    "done": { "$ref": "#/definitions/itemList" },
+    "roadmap": {
+      "type": "object",
+      "properties": {
+        "planned": { "$ref": "#/definitions/itemList" },
+        "todo": { "$ref": "#/definitions/itemList" },
+        "deferred": { "$ref": "#/definitions/itemList" },
+        "blocked": { "$ref": "#/definitions/itemList" }
+      }
+    },
+    "updated": { "type": "string", "description": "Shown in the footer." },
+    "footer": { "type": "string" }
+  }
+}

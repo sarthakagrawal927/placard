@@ -1,0 +1,9 @@
+node_modules/
+.vercel/
+.DS_Store
+*.log
+
+# generated local previews
+out/
+*.local.png
+*.local.svg

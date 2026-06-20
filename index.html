@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>placard — project cards for your README</title>
+    <meta name="description" content="Render a project.json into a beautiful, embeddable project-overview card for any GitHub README." />
+    <style>
+      :root {
+        --bg: #0d1117; --panel: #161b22; --border: #2a313c;
+        --text: #e6edf3; --dim: #9da7b3; --accent: #58a6ff;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; background: linear-gradient(135deg, #0d1117, #0a0e14);
+        color: var(--text); font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+        padding: 64px 20px;
+      }
+      main { max-width: 880px; margin: 0 auto; }
+      h1 { font-size: 52px; margin: 0 0 8px; letter-spacing: -1px; }
+      .tag { color: var(--accent); font-size: 20px; font-weight: 600; margin: 0 0 28px; }
+      p.lede { color: var(--dim); font-size: 18px; max-width: 640px; }
+      .card-frame {
+        margin: 40px 0; border: 1px solid var(--border); border-radius: 18px;
+        overflow: hidden; background: var(--panel);
+      }
+      .card-frame img { display: block; width: 100%; }
+      h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--dim); margin: 40px 0 12px; }
+      pre {
+        background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+        padding: 16px 18px; overflow-x: auto; font-size: 14px; color: #cdd9e5;
+      }
+      code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      footer { margin-top: 56px; color: #6e7681; font-size: 14px; }
+      .links { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 8px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>placard</h1>
+      <p class="tag">project cards for your README</p>
+      <p class="lede">
+        Render a <code>project.json</code> into a beautiful, embeddable
+        project-overview card — what a project is and why, its timeline,
+        dependencies, products, shipped work, and roadmap board — in a single image.
+      </p>
+
+      <div class="card-frame">
+        <img
+          alt="example placard card"
+          src="/api/card?src=https://raw.githubusercontent.com/sarthakagrawal927/placard/main/examples/saas-maker.json"
+        />
+      </div>
+
+      <h2>Embed</h2>
+      <pre><code>![project](https://placard.vercel.app/api/card?src=&lt;RAW_JSON_URL&gt;)</code></pre>
+
+      <h2>Dark / light automatic</h2>
+      <pre><code>&lt;picture&gt;
+  &lt;source media="(prefers-color-scheme: dark)"
+          srcset="https://placard.vercel.app/api/card?src=&lt;RAW_JSON_URL&gt;&amp;theme=dark"&gt;
+  &lt;img alt="project card"
+       src="https://placard.vercel.app/api/card?src=&lt;RAW_JSON_URL&gt;&amp;theme=light"&gt;
+&lt;/picture&gt;</code></pre>
+
+      <h2>Learn more</h2>
+      <div class="links">
+        <a href="https://github.com/sarthakagrawal927/placard">GitHub</a>
+        <a href="https://github.com/sarthakagrawal927/placard/blob/main/schema/project.schema.json">project.json schema</a>
+        <a href="https://github.com/sarthakagrawal927/placard/blob/main/examples/saas-maker.json">example</a>
+      </div>
+
+      <footer>Built like a badge, sized like a dashboard · rendered with satori → PNG</footer>
+    </main>
+  </body>
+</html>

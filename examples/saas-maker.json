@@ -1,0 +1,71 @@
+{
+  "name": "The Foundry",
+  "tagline": "API-first SaaS scaffolding for the fleet",
+  "why": "The platform that powers every fleet project — CLI, SDKs, embeddable widgets, a Cloudflare Workers API, a cockpit dashboard, and docs. Ship feedback, testimonials, task management, analytics, changelog, and fleet visibility from one API-first core.",
+  "links": {
+    "repo": "https://github.com/sarthakagrawal927/saas-maker",
+    "site": "https://app.sassmaker.com",
+    "docs": "https://docs.sassmaker.com"
+  },
+  "theme": { "accent": "#58a6ff", "mode": "dark" },
+  "dependencies": {
+    "external": [
+      "Cloudflare Workers",
+      "Hono",
+      "D1",
+      "Drizzle",
+      "better-auth",
+      "Next.js",
+      "Astro",
+      "Vitest"
+    ],
+    "internal": [
+      "@saas-maker/cli",
+      "@saas-maker/sdk",
+      "@saas-maker/blocks",
+      "@saas-maker/widgets",
+      "@saas-maker/shared-types"
+    ]
+  },
+  "timeline": [
+    { "date": "2025-11", "label": "Foundry core", "note": "Hono + D1 API" },
+    { "date": "2026-01", "label": "CLI + SDK", "note": "OpenAPI-validated fnd" },
+    { "date": "2026-03", "label": "Cockpit", "note": "Next.js dashboard" },
+    { "date": "2026-05", "label": "Fleet hub", "note": "events + task queue" },
+    { "date": "2026-06", "label": "Now", "note": "email + workers", "done": false }
+  ],
+  "products": [
+    { "name": "fnd CLI", "desc": "API-first command line, validated against OpenAPI", "status": "live" },
+    { "name": "@saas-maker/sdk", "desc": "Typed client library", "status": "live" },
+    { "name": "Cockpit", "desc": "app.sassmaker.com dashboard", "status": "live" },
+    { "name": "Widgets", "desc": "Embeddable badge / feedback widgets", "status": "live" },
+    { "name": "Docs", "desc": "Astro docs site", "status": "live" }
+  ],
+  "features": [
+    { "label": "Feedback, testimonials & changelog APIs" },
+    { "label": "Task management with project filters", "note": "Cockpit task board + tasks API" },
+    { "label": "Analytics & fleet visibility" },
+    { "label": "Standards API", "note": "GET/PUT /v1/standards/:type remote config" },
+    { "label": "Auto-changelog on task done" },
+    { "label": "Fleet events sink + task queue + worker SDK" },
+    { "label": "better-auth / Workers session bridge" }
+  ],
+  "roadmap": {
+    "planned": [
+      { "label": "Dynamic Workers execution lane" },
+      { "label": "Progress Board public surface" }
+    ],
+    "todo": [
+      { "label": "Migrate email to Cloudflare Email" },
+      { "label": "Fleet secret audit automation" }
+    ],
+    "deferred": [
+      { "label": "DB-backed guidance fields", "note": "AGENTS.md injection chosen instead" },
+      { "label": "Knowledge routes" }
+    ],
+    "blocked": [
+      { "label": "CF Email domain onboarding", "note": "token permission error" }
+    ]
+  },
+  "updated": "2026-06-20"
+}
