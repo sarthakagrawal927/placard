@@ -7,6 +7,7 @@
   "scripts": {
     "fonts": "tsx scripts/download-fonts.ts",
     "render": "tsx scripts/render-local.ts",
+    "preview": "tsx scripts/build-previews.ts",
     "typecheck": "tsc --noEmit",
     "dev": "vercel dev"
   },

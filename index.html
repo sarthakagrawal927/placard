@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>placard — project cards for your README</title>
     <meta name="description" content="Render a project.json into a beautiful, embeddable project-overview card for any GitHub README." />
-    <link
-      rel="preload"
-      as="image"
-      fetchpriority="high"
-      href="/api/card?src=https://raw.githubusercontent.com/sarthakagrawal927/placard/main/examples/saas-maker.json"
-    />
+    <link rel="preload" as="image" fetchpriority="high" href="/card-dark.png" />
     <style>
       :root {
         --bg: #0d1117; --panel: #161b22; --border: #2a313c;
@@ -28,7 +23,7 @@
       p.lede { color: var(--dim); font-size: 18px; max-width: 640px; }
       .card-frame {
         margin: 40px 0; border: 1px solid var(--border); border-radius: 18px;
-        overflow: hidden; background: var(--panel);
+        overflow: hidden; background: #0d1117;
       }
       .card-frame img { display: block; width: 100%; }
       h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--dim); margin: 40px 0 12px; }
@@ -54,12 +49,7 @@
       </p>
 
       <div class="card-frame">
-        <img
-          alt="example placard card"
-          fetchpriority="high"
-          decoding="async"
-          src="/api/card?src=https://raw.githubusercontent.com/sarthakagrawal927/placard/main/examples/saas-maker.json"
-        />
+        <img alt="example placard card" fetchpriority="high" src="/card-dark.png" />
       </div>
 
       <h2>Embed</h2>
