@@ -9,9 +9,9 @@ One image shows the whole project at a glance: what it is and why, build timelin
   <a href="https://placard-coral.vercel.app">
     <picture>
       <source media="(prefers-color-scheme: light)"
-              srcset="https://placard-coral.vercel.app/api/card?src=https://raw.githubusercontent.com/sarthakagrawal927/placard/main/project.json&theme=light&v=7">
+              srcset="https://placard-coral.vercel.app/api/card?src=https://raw.githubusercontent.com/sarthakagrawal927/placard/main/project.json&theme=light&animate=1&v=8">
       <img alt="placard project card"
-           src="https://placard-coral.vercel.app/api/card?src=https://raw.githubusercontent.com/sarthakagrawal927/placard/main/project.json&theme=dark&v=7">
+           src="https://placard-coral.vercel.app/api/card?src=https://raw.githubusercontent.com/sarthakagrawal927/placard/main/project.json&theme=dark&animate=1&v=8">
     </picture>
   </a>
 </p>
