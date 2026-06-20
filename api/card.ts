@@ -8,7 +8,9 @@ const clamp = (n: number, lo: number, hi: number): number => Math.max(lo, Math.m
 export default async function handler(req: Req, res: Res): Promise<void> {
   const url = new URL(req.url || "/", `https://${req.headers.host || "localhost"}`);
   const q = url.searchParams;
-  const format: Format = q.get("format") === "svg" ? "svg" : "png";
+  // animate implies SVG (PNG can't carry declarative animation).
+  const animate = q.get("animate") === "1";
+  const format: Format = animate || q.get("format") === "svg" ? "svg" : "png";
   const themeParam = q.get("theme");
   // undefined => fall back to the project's configured default mode
   const mode: ThemeMode | undefined = themeParam === "light" ? "light" : themeParam === "dark" ? "dark" : undefined;
@@ -16,7 +18,7 @@ export default async function handler(req: Req, res: Res): Promise<void> {
 
   try {
     const cfg = await loadConfig(q.get("src"));
-    const { body, contentType } = await renderCard(cfg, { mode, width, format });
+    const { body, contentType } = await renderCard(cfg, { mode, width, format, animate });
     res.setHeader("Content-Type", contentType);
     // Cache hard at the edge for speed; bump the embed's &v= param to force a
     // fresh render during iteration (changes the URL -> new cache key + new Camo).

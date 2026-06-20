@@ -7,6 +7,7 @@ import { twoCol } from "./ui.js";
 import { header } from "./sections/header.js";
 import { stats as statsSection } from "./sections/stats.js";
 import { fetchRepoStats, type RepoStats } from "./github.js";
+import { animateSvg } from "./animate.js";
 import { dependencies } from "./sections/dependencies.js";
 import { timeline } from "./sections/timeline.js";
 import { products } from "./sections/products.js";
@@ -49,7 +50,7 @@ function buildTree(t: Theme, cfg: ProjectConfig, width: number, repoStats: RepoS
 }
 
 export async function renderCard(cfg: ProjectConfig, opts: RenderOpts = {}): Promise<Rendered> {
-  const { mode, width = 1100, format = "png", scale = 2, bg } = opts;
+  const { mode, width = 1100, format = "png", scale = 2, bg, animate = false } = opts;
   // Explicit request (?theme=) wins so <picture> dark/light works; config
   // theme.mode is only the default when no mode is requested.
   const finalMode = mode || cfg.theme.mode || "dark";
@@ -60,7 +61,7 @@ export async function renderCard(cfg: ProjectConfig, opts: RenderOpts = {}): Pro
   const svg = await satori(tree as unknown as SatoriNode, { width, fonts: fonts as unknown as SatoriFonts });
 
   if (format === "svg") {
-    return { body: svg, contentType: "image/svg+xml; charset=utf-8" };
+    return { body: animate ? animateSvg(svg) : svg, contentType: "image/svg+xml; charset=utf-8" };
   }
   // Production output is transparent (blends into any GitHub theme). `bg` is a
   // preview-only flag to composite onto a known canvas color for eyeballing.

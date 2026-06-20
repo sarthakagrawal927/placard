@@ -80,6 +80,7 @@ export interface RenderOpts {
   format?: Format;
   scale?: number;
   bg?: string;
+  animate?: boolean;
 }
 
 export interface Rendered {
