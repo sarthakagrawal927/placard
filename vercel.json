@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "functions": {
-    "api/card.js": {
+    "api/card.ts": {
       "maxDuration": 15,
       "includeFiles": "assets/fonts/**"
     }
