@@ -5,6 +5,8 @@ import { resolveTheme, FONT_FAMILY } from "./theme.js";
 import { loadFonts } from "./fonts.js";
 import { twoCol } from "./ui.js";
 import { header } from "./sections/header.js";
+import { stats as statsSection } from "./sections/stats.js";
+import { fetchRepoStats, type RepoStats } from "./github.js";
 import { dependencies } from "./sections/dependencies.js";
 import { timeline } from "./sections/timeline.js";
 import { products } from "./sections/products.js";
@@ -17,16 +19,21 @@ type SatoriFonts = Parameters<typeof satori>[1]["fonts"];
 
 const PAD = 4; // tiny inset so 1px panel borders aren't clipped at the image edge
 
-function buildTree(t: Theme, cfg: ProjectConfig, width: number): El {
+function buildTree(t: Theme, cfg: ProjectConfig, width: number, repoStats: RepoStats | null): El {
   const deps = dependencies(t, cfg);
   const prods = products(t, cfg);
 
   // dependencies + products share a row when both exist; otherwise full width.
   const depRow = deps && prods ? twoCol(deps, prods) : deps || prods;
 
-  const sections = [header(t, cfg), timeline(t, cfg), depRow, features(t, cfg), roadmap(t, cfg)].filter(
-    (s): s is El => Boolean(s)
-  );
+  const sections = [
+    header(t, cfg),
+    repoStats ? statsSection(t, repoStats) : null,
+    timeline(t, cfg),
+    depRow,
+    features(t, cfg),
+    roadmap(t, cfg),
+  ].filter((s): s is El => Boolean(s));
 
   const footer = hbox(
     { marginTop: 4, alignItems: "center", justifyContent: "center", gap: 8 },
@@ -47,7 +54,8 @@ export async function renderCard(cfg: ProjectConfig, opts: RenderOpts = {}): Pro
   // theme.mode is only the default when no mode is requested.
   const finalMode = mode || cfg.theme.mode || "dark";
   const t = resolveTheme(finalMode, cfg.theme.accent);
-  const tree = buildTree(t, cfg, width);
+  const repoStats = cfg.stats && cfg.github ? await fetchRepoStats(cfg.github.owner, cfg.github.repo) : null;
+  const tree = buildTree(t, cfg, width, repoStats);
   const fonts = await loadFonts();
   const svg = await satori(tree as unknown as SatoriNode, { width, fonts: fonts as unknown as SatoriFonts });
 

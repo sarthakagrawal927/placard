@@ -33,6 +33,8 @@ export interface ProjectConfig {
   tagline: string;
   why: string;
   links: { repo: string; site: string; docs: string };
+  github: { owner: string; repo: string } | null;
+  stats: boolean;
   theme: { accent: string; mode: ThemeMode | undefined };
   dependencies: { external: Item[]; internal: Item[] };
   timeline: TimelineEntry[];

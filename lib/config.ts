@@ -1,5 +1,6 @@
 // Fetch + normalize a project.json into the shape every section renderer expects.
 // Source is a raw URL (?src=) so any repo can host its own config.
+import { parseRepo } from "./github.js";
 import type { Item, ProjectConfig, ThemeMode } from "./types.js";
 
 const MAX_BYTES = 256 * 1024;
@@ -72,6 +73,8 @@ export function normalize(input: unknown): ProjectConfig {
       site: str(links.site ?? links.homepage),
       docs: str(links.docs),
     },
+    github: parseRepo(str(raw.github) || str(links.repo)),
+    stats: raw.stats !== false,
     theme: { accent: str(t.accent), mode },
     dependencies: { external: asList(deps.external), internal: asList(deps.internal) },
     timeline: Array.isArray(raw.timeline)

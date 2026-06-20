@@ -28,6 +28,25 @@ function icon(paths: string[], o: IconOpts = {}): El {
   };
 }
 
+// Variant for icons that need non-path elements (circles/lines).
+function iconEl(children: El[], o: IconOpts = {}): El {
+  const { size = 18, color = "currentColor", fill = "none", strokeWidth = 2 } = o;
+  return {
+    type: "svg",
+    props: {
+      width: size,
+      height: size,
+      viewBox: "0 0 24 24",
+      fill,
+      stroke: color,
+      strokeWidth,
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      children,
+    },
+  };
+}
+
 type Icon = (o?: IconOpts) => El;
 
 export const icons: Record<string, Icon> = {
@@ -40,5 +59,23 @@ export const icons: Record<string, Icon> = {
   package: (o) => icon(["M21 8l-9-5-9 5v8l9 5 9-5z", "M3 8l9 5 9-5", "M12 13v9"], o),
   layers: (o) => icon(["M12 3l9 5-9 5-9-5z", "M3 13l9 5 9-5"], o),
   flag: (o) => icon(["M4 22V4", "M4 4h13l-2 4 2 4H4"], o),
+  star: (o) =>
+    icon(["M12 2.5l2.9 5.9 6.5.95-4.7 4.58 1.1 6.47L12 17.4l-5.8 3.05 1.1-6.47L2.6 9.35l6.5-.95z"], {
+      ...o,
+      fill: o?.color ?? "currentColor",
+      strokeWidth: 0,
+    }),
+  fork: (o) =>
+    iconEl(
+      [
+        h("circle", { cx: 6, cy: 5, r: 2.6 }),
+        h("circle", { cx: 18, cy: 5, r: 2.6 }),
+        h("circle", { cx: 12, cy: 19, r: 2.6 }),
+        h("path", { d: "M6 7.6V10a3 3 0 003 3h6a3 3 0 003-3V7.6" }),
+        h("path", { d: "M12 13v3.4" }),
+      ],
+      o
+    ),
+  issue: (o) => iconEl([h("circle", { cx: 12, cy: 12, r: 9 }), h("circle", { cx: 12, cy: 12, r: 1, fill: o?.color ?? "currentColor" })], o),
   spark: (o) => icon(["M12 3v4", "M12 17v4", "M3 12h4", "M17 12h4", "M6 6l2 2", "M16 16l2 2", "M18 6l-2 2", "M8 16l-2 2"], o),
 };
