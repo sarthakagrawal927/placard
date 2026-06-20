@@ -28,6 +28,7 @@ export function timeline(t: Theme, cfg: ProjectConfig): El | null {
           borderRadius: 999,
           background: done ? color : t.panel,
           border: `3px solid ${color}`,
+          ...(t.glow ? { boxShadow: `0 0 12px ${color}` } : {}),
         },
       })
     );

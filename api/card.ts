@@ -14,7 +14,8 @@ export default async function handler(req: Req, res: Res): Promise<void> {
   const format: Format = animate || q.get("format") === "svg" ? "svg" : "png";
   const themeParam = q.get("theme");
   // undefined => fall back to the project's configured default mode
-  const mode: ThemeMode | undefined = themeParam === "light" ? "light" : themeParam === "dark" ? "dark" : undefined;
+  const mode: ThemeMode | undefined =
+    themeParam === "light" || themeParam === "dark" || themeParam === "midnight" ? themeParam : undefined;
   const width = clamp(parseInt(q.get("width") || "", 10) || 1100, 600, 1600);
 
   try {

@@ -56,9 +56,12 @@ function buildTree(
     })
   );
 
-  // Transparent outer: the gaps show the viewer's real GitHub canvas, so the
-  // card blends into any theme (dark / dimmed / light / high-contrast).
-  return vbox({ width, padding: PAD, paddingTop: 6, gap: 12, fontFamily: FONT_FAMILY }, ...sections, footer);
+  // Themes with their own bg (midnight) paint a self-contained rounded card;
+  // dark/light stay transparent so the gaps blend into the GitHub canvas.
+  const outer = t.bg
+    ? { width, padding: 24, gap: 12, backgroundImage: t.bg, borderRadius: 22, fontFamily: FONT_FAMILY }
+    : { width, padding: PAD, paddingTop: 6, gap: 12, fontFamily: FONT_FAMILY };
+  return vbox(outer, ...sections, footer);
 }
 
 export async function renderCard(cfg: ProjectConfig, opts: RenderOpts = {}): Promise<Rendered> {

@@ -46,11 +46,15 @@ export interface ProjectConfig {
   updated: string;
 }
 
-export type ThemeMode = "dark" | "light";
+export type ThemeMode = "dark" | "light" | "midnight";
 
 export interface Theme {
   mode: ThemeMode;
   canvas: string;
+  // Optional self-contained card background (radial gradient). When set, the
+  // card paints this instead of being transparent — a distinct, branded look.
+  bg?: string;
+  glow?: boolean;
   panel: string;
   panelTop: string;
   inset: string;

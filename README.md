@@ -4,15 +4,11 @@ Render a `project.json` into a beautiful, embeddable **project-overview card** f
 
 One image shows the whole project at a glance: what it is and why, build timeline, dependencies, products, what's shipped, and the roadmap board (planned / to do / deferred / blocked).
 
-<!-- placard renders its own card, from project.json in this repo (live once deployed) -->
+<!-- placard renders its own card, from project.json in this repo (the "midnight" theme) -->
 <p align="center">
   <a href="https://placard-coral.vercel.app">
-    <picture>
-      <source media="(prefers-color-scheme: light)"
-              srcset="https://placard-coral.vercel.app/api/card?src=https://raw.githubusercontent.com/sarthakagrawal927/placard/main/project.json&theme=light&animate=1&v=9">
-      <img alt="placard project card"
-           src="https://placard-coral.vercel.app/api/card?src=https://raw.githubusercontent.com/sarthakagrawal927/placard/main/project.json&theme=dark&animate=1&v=9">
-    </picture>
+    <img alt="placard project card"
+         src="https://placard-coral.vercel.app/api/card?src=https://raw.githubusercontent.com/sarthakagrawal927/placard/main/project.json&theme=midnight&animate=1&v=10">
   </a>
 </p>
 

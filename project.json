@@ -6,7 +6,7 @@
     "repo": "https://github.com/sarthakagrawal927/placard",
     "site": "https://placard-coral.vercel.app"
   },
-  "theme": { "accent": "#58a6ff", "mode": "dark" },
+  "theme": { "mode": "midnight" },
   "graph": true,
   "dependencies": {
     "external": ["satori", "@resvg/resvg-js", "@napi-rs/canvas", "Vercel", "Inter"]

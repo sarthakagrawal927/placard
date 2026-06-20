@@ -75,7 +75,8 @@ export function normalize(input: unknown): ProjectConfig {
   const deps = (raw.dependencies || {}) as Record<string, unknown>;
   const road = (raw.roadmap || {}) as Record<string, unknown>;
   const links = (raw.links || {}) as Record<string, unknown>;
-  const mode = t.mode === "light" || t.mode === "dark" ? (t.mode as ThemeMode) : undefined;
+  const mode =
+    t.mode === "light" || t.mode === "dark" || t.mode === "midnight" ? (t.mode as ThemeMode) : undefined;
 
   return {
     name: str(raw.name) || "Untitled Project",
