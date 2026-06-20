@@ -1,12 +1,13 @@
 {
   "name": "placard",
   "tagline": "project cards for your README",
-  "why": "Render a project.json into a beautiful, embeddable project-overview card for any GitHub README — the \"much larger\" sibling of a status badge. One image shows what a project is and why, plus live repo stats, products, shipped work, and a roadmap board.",
+  "why": "Render a project.json into a beautiful, embeddable project-overview card for any GitHub README — the \"much larger\" sibling of a status badge. One image shows what a project is and why, plus its products, shipped work, and roadmap board.",
   "links": {
     "repo": "https://github.com/sarthakagrawal927/placard",
     "site": "https://placard-coral.vercel.app"
   },
   "theme": { "mode": "midnight" },
+  "stats": false,
   "products": [
     { "name": "/api/card", "desc": "Serverless endpoint — project.json to PNG/SVG card", "status": "live" },
     { "name": "Playground", "desc": "Edit config live, copy a self-contained embed", "status": "live" },

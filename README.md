@@ -8,7 +8,7 @@ One image shows the whole project at a glance: what it is and why, build timelin
 <p align="center">
   <a href="https://placard-coral.vercel.app">
     <img alt="placard project card"
-         src="https://placard-coral.vercel.app/api/card?src=https://raw.githubusercontent.com/sarthakagrawal927/placard/main/project.json&theme=midnight&animate=1&v=13">
+         src="https://placard-coral.vercel.app/api/card?src=https://raw.githubusercontent.com/sarthakagrawal927/placard/main/project.json&theme=midnight&animate=1&v=14">
   </a>
 </p>
 
