@@ -12,8 +12,9 @@ const cfg = normalize(JSON.parse(await readFile(join(root, "examples/saas-maker.
 for (const [mode, bg, out] of [
   ["dark", "#0d1117", "card-dark.png"],
   ["light", "#ffffff", "card-light.png"],
+  ["midnight", "#0b1326", "card-midnight.png"],
 ] as const) {
-  const { body } = await renderCard(cfg, { mode, format: "png", bg });
+  const { body } = await renderCard(cfg, { mode, format: "png", bg, graph: true });
   await writeFile(join(root, out), body);
   console.log(`✓ ${out}`);
 }
