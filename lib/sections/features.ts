@@ -12,11 +12,13 @@ export function features(t: Theme, cfg: ProjectConfig): El | null {
       icon: iconTile(icons.check!({ size: 16, color: t.status.done }), t.status.done, t),
       count: cfg.features.length,
     },
-    vbox(
-      { gap: 9 },
+    // Two-column grid so the section fills the card width instead of leaving
+    // the right half empty. Single column when there are only a couple items.
+    hbox(
+      { flexWrap: "wrap", gap: 12, width: "100%" },
       ...cfg.features.map((f) =>
         hbox(
-          { alignItems: "flex-start", gap: 9 },
+          { alignItems: "flex-start", gap: 9, width: cfg.features.length > 3 ? "47.5%" : "100%" },
           h("div", { style: { display: "flex", paddingTop: 1 } }, icons.checkCircle!({ size: 16, color: t.status.done })),
           vbox(
             { gap: 1, flexGrow: 1, minWidth: 0 },
