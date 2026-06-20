@@ -37,6 +37,19 @@ export async function loadConfig(src: string | null): Promise<ProjectConfig> {
   return normalize(raw);
 }
 
+// Decode an inline base64-encoded project.json (?data=) — powers the playground
+// and self-contained embeds that don't host a file.
+export function loadConfigFromData(data: string): ProjectConfig {
+  const json = Buffer.from(data, "base64").toString("utf8");
+  let raw: unknown;
+  try {
+    raw = JSON.parse(json);
+  } catch {
+    throw new ConfigError("?data= is not valid base64 JSON");
+  }
+  return normalize(raw);
+}
+
 const str = (v: unknown): string => (typeof v === "string" ? v.trim() : "");
 
 const asItem = (v: unknown): Item | null => {

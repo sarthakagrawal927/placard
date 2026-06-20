@@ -1,4 +1,4 @@
-import { loadConfig, ConfigError } from "../lib/config.js";
+import { loadConfig, loadConfigFromData, ConfigError } from "../lib/config.js";
 import { renderCard } from "../lib/render.js";
 import { renderError } from "../lib/error-card.js";
 import type { Format, Req, Res, ThemeMode } from "../lib/types.js";
@@ -17,7 +17,8 @@ export default async function handler(req: Req, res: Res): Promise<void> {
   const width = clamp(parseInt(q.get("width") || "", 10) || 1100, 600, 1600);
 
   try {
-    const cfg = await loadConfig(q.get("src"));
+    const data = q.get("data");
+    const cfg = data ? loadConfigFromData(data) : await loadConfig(q.get("src"));
     const { body, contentType } = await renderCard(cfg, { mode, width, format, animate });
     res.setHeader("Content-Type", contentType);
     // Cache hard at the edge for speed; bump the embed's &v= param to force a

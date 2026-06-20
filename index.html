@@ -36,6 +36,27 @@
       a:hover { text-decoration: underline; }
       footer { margin-top: 56px; color: #6e7681; font-size: 14px; }
       .links { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 8px; }
+
+      .pg { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0 8px; align-items: start; }
+      .pg-pane { border: 1px solid var(--border); border-radius: 14px; background: var(--panel); overflow: hidden; }
+      .pg-toolbar { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+      .pg-toolbar .spacer { flex: 1; }
+      .pg-btn { background: #0d1117; color: var(--text); border: 1px solid var(--border); border-radius: 7px;
+        padding: 5px 12px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+      .pg-btn:hover { border-color: var(--accent); }
+      .pg-btn.active { background: rgba(88,166,255,0.16); border-color: var(--accent); color: #fff; }
+      #pg-json { display: block; width: 100%; height: 460px; resize: vertical; border: 0; background: transparent;
+        color: #cdd9e5; padding: 14px 16px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 13px; line-height: 1.55; outline: none; }
+      .pg-preview { padding: 14px; background: #0d1117; display: flex; align-items: flex-start; justify-content: center; min-height: 220px; }
+      .pg-preview img { width: 100%; border-radius: 8px; }
+      .pg-err { color: #f85149; font-size: 13px; min-height: 18px; margin: 4px 2px 0; }
+      .pg-status { color: #6e7681; font-size: 12px; }
+      @media (max-width: 760px) {
+        body { padding: 40px 16px; }
+        h1 { font-size: 40px; }
+        .pg { grid-template-columns: 1fr; }
+      }
     </style>
   </head>
   <body>
@@ -51,6 +72,24 @@
       <div class="card-frame">
         <img alt="example placard card" fetchpriority="high" src="/card-dark.png" />
       </div>
+
+      <h2>Try it live</h2>
+      <div class="pg">
+        <div class="pg-pane">
+          <div class="pg-toolbar">
+            <button class="pg-btn active" data-theme="dark">Dark</button>
+            <button class="pg-btn" data-theme="light">Light</button>
+            <span class="spacer"></span>
+            <span class="pg-status" id="pg-status"></span>
+            <button class="pg-btn" id="pg-copy">Copy embed</button>
+          </div>
+          <textarea id="pg-json" spellcheck="false"></textarea>
+        </div>
+        <div class="pg-pane pg-preview">
+          <img id="pg-img" alt="live preview" />
+        </div>
+      </div>
+      <div class="pg-err" id="pg-err"></div>
 
       <h2>Embed</h2>
       <pre><code>![project](https://placard-coral.vercel.app/api/card?src=&lt;RAW_JSON_URL&gt;)</code></pre>
@@ -72,5 +111,84 @@
 
       <footer>Built like a badge, sized like a dashboard · rendered with satori → PNG</footer>
     </main>
+
+    <script>
+      (function () {
+        const starter = {
+          name: "My Project",
+          tagline: "what it does, in one line",
+          why: "A short paragraph on what this project is and why it exists.",
+          links: { repo: "https://github.com/sarthakagrawal927/placard" },
+          theme: { accent: "#58a6ff" },
+          dependencies: { external: ["TypeScript", "Vercel"] },
+          timeline: [
+            { date: "2026-05", label: "Start" },
+            { date: "now", label: "Shipping", done: false },
+          ],
+          features: ["First feature shipped", "Second feature shipped"],
+          roadmap: { todo: ["Next up"], planned: ["Later"] },
+        };
+        const ta = document.getElementById("pg-json");
+        const img = document.getElementById("pg-img");
+        const err = document.getElementById("pg-err");
+        const status = document.getElementById("pg-status");
+        const copyBtn = document.getElementById("pg-copy");
+        let theme = "dark";
+        ta.value = JSON.stringify(starter, null, 2);
+
+        const enc = (s) => encodeURIComponent(btoa(unescape(encodeURIComponent(s))));
+        function dataUrl(t) {
+          let parsed;
+          try {
+            parsed = JSON.parse(ta.value);
+          } catch (e) {
+            return null;
+          }
+          return "/api/card?data=" + enc(JSON.stringify(parsed)) + "&theme=" + t;
+        }
+        function update() {
+          try {
+            JSON.parse(ta.value);
+            err.textContent = "";
+          } catch (e) {
+            err.textContent = "Invalid JSON: " + e.message;
+            return;
+          }
+          const s = dataUrl(theme);
+          if (s) {
+            status.textContent = "rendering…";
+            img.src = s;
+          }
+        }
+        img.addEventListener("load", () => (status.textContent = ""));
+        img.addEventListener("error", () => (status.textContent = "render failed"));
+        let timer;
+        ta.addEventListener("input", () => {
+          clearTimeout(timer);
+          timer = setTimeout(update, 650);
+        });
+        document.querySelectorAll("[data-theme]").forEach((b) =>
+          b.addEventListener("click", () => {
+            document.querySelectorAll("[data-theme]").forEach((x) => x.classList.remove("active"));
+            b.classList.add("active");
+            theme = b.dataset.theme;
+            update();
+          })
+        );
+        copyBtn.addEventListener("click", () => {
+          const s = dataUrl(theme);
+          if (!s) {
+            err.textContent = "Fix the JSON first";
+            return;
+          }
+          const url = "https://placard-coral.vercel.app" + s.replace("&theme=" + theme, "");
+          navigator.clipboard.writeText("![project card](" + url + ")").then(() => {
+            copyBtn.textContent = "Copied!";
+            setTimeout(() => (copyBtn.textContent = "Copy embed"), 1500);
+          });
+        });
+        update();
+      })();
+    </script>
   </body>
 </html>
