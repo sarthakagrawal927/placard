@@ -1,10 +1,19 @@
 // Reusable building blocks styled to read as native GitHub surfaces.
-import { h, vbox, hbox, text } from "./h.js";
-import { FONT_FAMILY, tint } from "./theme.js";
+import { h, vbox, hbox, text } from "./h";
+import { FONT_FAMILY, tint } from "./theme";
+import type { El, Theme } from "./types";
+
+type Child = El | string | null | undefined | false;
+type Style = Record<string, unknown>;
+
+interface BoxOpts {
+  title?: string;
+  icon?: El | null;
+  count?: number | null;
+}
 
 // A GitHub-style "Box": subtle surface, 1px border, rounded corners.
-// Header is a sentence-case semibold title with an icon — no tracked eyebrow.
-export function box(t, { title, icon, count } = {}, ...children) {
+export function box(t: Theme, { title, icon, count }: BoxOpts = {}, ...children: Child[]): El {
   const header =
     title &&
     hbox(
@@ -18,19 +27,14 @@ export function box(t, { title, icon, count } = {}, ...children) {
     );
 
   return vbox(
-    {
-      background: t.panel,
-      border: `1px solid ${t.border}`,
-      borderRadius: 12,
-      padding: 20,
-    },
+    { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 20 },
     header,
     ...children
   );
 }
 
 // Small monochrome count, GitHub "Counter" style.
-export function countPill(t, n) {
+export function countPill(t: Theme, n: number): El {
   return text(String(n), {
     fontSize: 12,
     fontWeight: 600,
@@ -44,7 +48,7 @@ export function countPill(t, n) {
 }
 
 // GitHub "Label" pill — tinted fill + same-hue border + colored text.
-export function label(t, value, color) {
+export function label(t: Theme, value: string, color: string): El {
   return text(value, {
     fontSize: 12.5,
     fontWeight: 600,
@@ -58,7 +62,7 @@ export function label(t, value, color) {
 }
 
 // Neutral topic-tag chip (dependencies).
-export function tag(t, value) {
+export function tag(t: Theme, value: string): El {
   return text(value, {
     fontSize: 13.5,
     fontWeight: 500,
@@ -72,7 +76,7 @@ export function tag(t, value) {
 }
 
 // Rounded icon tile with a tinted background (section glyphs).
-export function iconTile(icon, color, t) {
+export function iconTile(icon: El, color: string, t: Theme): El {
   return hbox(
     {
       alignItems: "center",
@@ -86,17 +90,17 @@ export function iconTile(icon, color, t) {
   );
 }
 
-export function dot(color, size = 8) {
+export function dot(color: string, size = 8): El {
   return h("div", {
     style: { display: "flex", width: size, height: size, borderRadius: 999, background: color, flexShrink: 0 },
   });
 }
 
-export function paragraph(t, value, style = {}) {
+export function paragraph(t: Theme, value: string, style: Style = {}): El {
   return text(value, { fontSize: 16, lineHeight: 1.6, color: t.muted, ...style });
 }
 
-export function twoCol(left, right, gap = 16) {
+export function twoCol(left: El, right: El, gap = 16): El {
   return hbox(
     { gap, width: "100%", alignItems: "stretch" },
     h("div", { style: { display: "flex", flexBasis: 0, flexGrow: 1, minWidth: 0 } }, left),

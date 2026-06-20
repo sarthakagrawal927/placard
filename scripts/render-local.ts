@@ -1,13 +1,16 @@
 // Render a local project.json to PNG/SVG for visual iteration — no deploy needed.
-// Usage: node scripts/render-local.mjs [path-to-json] [dark|light] [png|svg]
+// Usage: tsx scripts/render-local.ts [path-to-json] [dark|light] [png|svg]
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { normalize } from "../lib/config.js";
-import { renderCard } from "../lib/render.js";
+import { normalize } from "../lib/config";
+import { renderCard } from "../lib/render";
+import type { Format, ThemeMode } from "../lib/types";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const [, , file = "examples/saas-maker.json", mode = "dark", format = "png"] = process.argv;
+const file = process.argv[2] ?? "examples/saas-maker.json";
+const mode = (process.argv[3] ?? "dark") as ThemeMode;
+const format = (process.argv[4] ?? "png") as Format;
 
 const cfg = normalize(JSON.parse(await readFile(join(root, file), "utf8")));
 // Composite onto GitHub's real canvas color so the local preview matches how it

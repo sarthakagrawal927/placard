@@ -81,8 +81,12 @@ Sections: `links` · `dependencies` (external/internal) · `timeline` ·
 npm install
 npm run fonts                 # download Inter weights into assets/fonts/
 npm run render                # renders examples/saas-maker.json -> out/dark.png
-node scripts/render-local.mjs examples/saas-maker.json light png
+npm run render -- examples/saas-maker.json light png
+npm run typecheck             # tsc --noEmit
 ```
+
+Written in TypeScript. Local scripts run via `tsx`; Vercel compiles `api/*.ts`
+natively, so there's still no build step.
 
 ## Deploy (Vercel)
 

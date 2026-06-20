@@ -1,10 +1,11 @@
-import { h, vbox, hbox, text } from "../h.js";
-import { box, iconTile } from "../ui.js";
-import { icons } from "../icons.js";
+import { h, vbox, hbox, text } from "../h";
+import { box, iconTile } from "../ui";
+import { icons } from "../icons";
+import type { El, ProjectConfig, Theme } from "../types";
 
 // Horizontal milestone rail: a thin baseline through evenly spaced nodes,
 // date above each, label below. Completed nodes are filled, upcoming is a ring.
-export function timeline(t, cfg) {
+export function timeline(t: Theme, cfg: ProjectConfig): El | null {
   const items = cfg.timeline;
   if (!items.length) return null;
 
@@ -12,15 +13,7 @@ export function timeline(t, cfg) {
     "div",
     { style: { display: "flex", position: "relative", width: "100%", paddingTop: 2 } },
     h("div", {
-      style: {
-        display: "flex",
-        position: "absolute",
-        top: 25,
-        left: 24,
-        right: 24,
-        height: 2,
-        background: t.border,
-      },
+      style: { display: "flex", position: "absolute", top: 25, left: 24, right: 24, height: 2, background: t.border },
     }),
     hbox(
       { width: "100%", justifyContent: "space-between", alignItems: "flex-start" },
@@ -45,5 +38,5 @@ export function timeline(t, cfg) {
     )
   );
 
-  return box(t, { title: "Build timeline", icon: iconTile(icons.clock({ size: 16, color: t.status.done }), t.status.done, t) }, rail);
+  return box(t, { title: "Build timeline", icon: iconTile(icons.clock!({ size: 16, color: t.status.done }), t.status.done, t) }, rail);
 }

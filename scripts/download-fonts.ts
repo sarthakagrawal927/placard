@@ -7,7 +7,7 @@ import { dirname, join } from "node:path";
 const DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "assets", "fonts");
 const CDN = "https://cdn.jsdelivr.net/npm/@fontsource/inter@5/files";
 
-const WEIGHTS = [
+const WEIGHTS: [number, string][] = [
   [400, "Inter-400.woff"],
   [600, "Inter-600.woff"],
   [700, "Inter-700.woff"],

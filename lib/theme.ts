@@ -1,8 +1,9 @@
 // GitHub Primer color tokens so the card blends into a README as if it were a
-// first-party GitHub surface. The outer background is transparent (see render.js)
+// first-party GitHub surface. The outer background is transparent (see render.ts)
 // so the gaps between panels show the viewer's real GitHub canvas in any theme.
+import type { Theme, ThemeMode } from "./types";
 
-const DARK = {
+const DARK: Theme = {
   mode: "dark",
   canvas: "#0d1117", // assumed GitHub bg (for reference, not painted)
   panel: "#161b22", // canvas.subtle — the "Box" surface
@@ -25,7 +26,7 @@ const DARK = {
   },
 };
 
-const LIGHT = {
+const LIGHT: Theme = {
   mode: "light",
   canvas: "#ffffff",
   panel: "#f6f8fa", // canvas.subtle
@@ -49,14 +50,14 @@ const LIGHT = {
 };
 
 // 8-digit hex alpha helper for tinted status backgrounds (Primer-style subtle fills).
-export function tint(hex, alpha = 0.15) {
+export function tint(hex: string, alpha = 0.15): string {
   const a = Math.round(alpha * 255).toString(16).padStart(2, "0");
   return `${hex}${a}`;
 }
 
-export function resolveTheme(mode = "dark", accent) {
+export function resolveTheme(mode: ThemeMode = "dark", accent?: string): Theme {
   const base = mode === "light" ? LIGHT : DARK;
-  const theme = { ...base, status: { ...base.status } };
+  const theme: Theme = { ...base, status: { ...base.status } };
   if (accent && /^#[0-9a-fA-F]{3,8}$/.test(accent)) {
     theme.accent = accent;
     theme.accentEmphasis = accent;

@@ -1,17 +1,18 @@
-import { loadConfig, ConfigError } from "../lib/config.js";
-import { renderCard } from "../lib/render.js";
-import { renderError } from "../lib/error-card.js";
+import { loadConfig, ConfigError } from "../lib/config";
+import { renderCard } from "../lib/render";
+import { renderError } from "../lib/error-card";
+import type { Format, Req, Res, ThemeMode } from "../lib/types";
 
-const clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
+const clamp = (n: number, lo: number, hi: number): number => Math.max(lo, Math.min(hi, n));
 
-export default async function handler(req, res) {
-  const url = new URL(req.url, `https://${req.headers.host || "localhost"}`);
+export default async function handler(req: Req, res: Res): Promise<void> {
+  const url = new URL(req.url || "/", `https://${req.headers.host || "localhost"}`);
   const q = url.searchParams;
-  const format = q.get("format") === "svg" ? "svg" : "png";
+  const format: Format = q.get("format") === "svg" ? "svg" : "png";
   const themeParam = q.get("theme");
   // undefined => fall back to the project's configured default mode
-  const mode = themeParam === "light" ? "light" : themeParam === "dark" ? "dark" : undefined;
-  const width = clamp(parseInt(q.get("width"), 10) || 1100, 600, 1600);
+  const mode: ThemeMode | undefined = themeParam === "light" ? "light" : themeParam === "dark" ? "dark" : undefined;
+  const width = clamp(parseInt(q.get("width") || "", 10) || 1100, 600, 1600);
 
   try {
     const cfg = await loadConfig(q.get("src"));
@@ -23,7 +24,7 @@ export default async function handler(req, res) {
   } catch (err) {
     const isCfg = err instanceof ConfigError;
     const { body, contentType } = await renderError(
-      isCfg ? err.message : "Render failed — check your project.json",
+      isCfg ? (err as ConfigError).message : "Render failed — check your project.json",
       { mode, format }
     );
     res.setHeader("Content-Type", contentType);

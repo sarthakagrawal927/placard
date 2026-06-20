@@ -1,29 +1,24 @@
-import { h, vbox, hbox, text } from "../h.js";
-import { tint } from "../theme.js";
-import { icons } from "../icons.js";
+import { vbox, hbox, text } from "../h";
+import { tint } from "../theme";
+import { icons } from "../icons";
+import type { El, ProjectConfig, Theme } from "../types";
 
-// GitHub-button styled link.
-const linkBtn = (t, icon, labelText) =>
+type IconFn = (o?: { size?: number; color?: string }) => El;
+
+const linkBtn = (t: Theme, icon: IconFn, labelText: string): El =>
   hbox(
-    {
-      alignItems: "center",
-      gap: 7,
-      background: t.inset,
-      border: `1px solid ${t.border}`,
-      borderRadius: 6,
-      padding: "6px 12px",
-    },
+    { alignItems: "center", gap: 7, background: t.inset, border: `1px solid ${t.border}`, borderRadius: 6, padding: "6px 12px" },
     icon({ size: 15, color: t.muted }),
     text(labelText, { fontSize: 14, fontWeight: 500, color: t.text })
   );
 
-export function header(t, cfg) {
+export function header(t: Theme, cfg: ProjectConfig): El {
   const initial = (cfg.name.trim()[0] || "•").toUpperCase();
 
-  const links = [];
-  if (cfg.links.repo) links.push(linkBtn(t, icons.repo, hostOf(cfg.links.repo)));
-  if (cfg.links.site) links.push(linkBtn(t, icons.globe, hostOf(cfg.links.site)));
-  if (cfg.links.docs) links.push(linkBtn(t, icons.docs, "docs"));
+  const links: El[] = [];
+  if (cfg.links.repo) links.push(linkBtn(t, icons.repo!, hostOf(cfg.links.repo)));
+  if (cfg.links.site) links.push(linkBtn(t, icons.globe!, hostOf(cfg.links.site)));
+  if (cfg.links.docs) links.push(linkBtn(t, icons.docs!, "docs"));
 
   const monogram = hbox(
     {
@@ -55,7 +50,7 @@ export function header(t, cfg) {
   );
 }
 
-function hostOf(url) {
+function hostOf(url: string): string {
   try {
     return new URL(url).host.replace(/^www\./, "");
   } catch {

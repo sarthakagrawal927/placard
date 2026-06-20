@@ -1,13 +1,14 @@
 // Tiny hyperscript helper producing the plain-object element tree satori expects.
-// Usage: h("div", { style }, child, child, ...) or h("div", { style }, [children]).
-//
-// Satori requires every element that has more than one child to be display:flex.
-// The `box` / `vbox` / `hbox` helpers bake that in so we never forget.
+import type { El } from "./types";
 
-export function h(type, props = {}, ...children) {
+type Style = Record<string, unknown>;
+type Props = Record<string, unknown> & { style?: Style };
+type Child = El | string | null | undefined | false;
+
+export function h(type: string, props: Props = {}, ...children: Child[]): El {
   const flat = children
-    .flat(Infinity)
-    .filter((c) => c !== null && c !== undefined && c !== false && c !== "");
+    .flat(Infinity as 1)
+    .filter((c): c is El | string => c !== null && c !== undefined && c !== false && c !== "");
   return {
     type,
     props: {
@@ -18,16 +19,16 @@ export function h(type, props = {}, ...children) {
 }
 
 // Vertical flex container.
-export function vbox(style = {}, ...children) {
+export function vbox(style: Style = {}, ...children: Child[]): El {
   return h("div", { style: { display: "flex", flexDirection: "column", ...style } }, ...children);
 }
 
 // Horizontal flex container.
-export function hbox(style = {}, ...children) {
+export function hbox(style: Style = {}, ...children: Child[]): El {
   return h("div", { style: { display: "flex", flexDirection: "row", ...style } }, ...children);
 }
 
 // A bare text node wrapper (satori renders strings only inside an element).
-export function text(value, style = {}) {
+export function text(value: unknown, style: Style = {}): El {
   return h("div", { style: { display: "flex", ...style } }, String(value));
 }

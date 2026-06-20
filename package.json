@@ -5,13 +5,19 @@
   "description": "Render a project.json into a beautiful, embeddable SVG/PNG project-overview card for any GitHub README.",
   "type": "module",
   "scripts": {
-    "fonts": "node scripts/download-fonts.mjs",
-    "render": "node scripts/render-local.mjs",
+    "fonts": "tsx scripts/download-fonts.ts",
+    "render": "tsx scripts/render-local.ts",
+    "typecheck": "tsc --noEmit",
     "dev": "vercel dev"
   },
   "dependencies": {
     "satori": "^0.12.1",
     "@resvg/resvg-js": "^2.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
   },
   "engines": {
     "node": ">=18"

@@ -1,26 +1,20 @@
-import { vbox, hbox, text } from "../h.js";
-import { box, dot, iconTile } from "../ui.js";
-import { icons } from "../icons.js";
+import { vbox, hbox, text } from "../h";
+import { box, dot, iconTile } from "../ui";
+import { icons } from "../icons";
+import type { El, Item, ProjectConfig, Theme } from "../types";
 
-const COLUMNS = [
+type RoadmapKey = "planned" | "todo" | "deferred" | "blocked";
+
+const COLUMNS: { key: RoadmapKey; label: string; status: keyof Theme["status"] }[] = [
   { key: "planned", label: "Planned", status: "planned" },
   { key: "todo", label: "To do", status: "todo" },
   { key: "deferred", label: "Deferred", status: "deferred" },
   { key: "blocked", label: "Blocked", status: "blocked" },
 ];
 
-const column = (t, label, color, items) =>
+const column = (t: Theme, label: string, color: string, items: Item[]): El =>
   vbox(
-    {
-      flexBasis: 0,
-      flexGrow: 1,
-      minWidth: 0,
-      gap: 9,
-      background: t.inset,
-      border: `1px solid ${t.borderMuted}`,
-      borderRadius: 10,
-      padding: 13,
-    },
+    { flexBasis: 0, flexGrow: 1, minWidth: 0, gap: 9, background: t.inset, border: `1px solid ${t.borderMuted}`, borderRadius: 10, padding: 13 },
     hbox(
       { alignItems: "center", gap: 8, marginBottom: 1 },
       dot(color, 9),
@@ -42,13 +36,13 @@ const column = (t, label, color, items) =>
       : [text("—", { fontSize: 13.5, color: t.subtle, padding: "2px 0" })])
   );
 
-export function roadmap(t, cfg) {
+export function roadmap(t: Theme, cfg: ProjectConfig): El | null {
   const present = COLUMNS.filter((c) => cfg.roadmap[c.key].length);
   if (!present.length) return null;
   const total = present.reduce((n, c) => n + cfg.roadmap[c.key].length, 0);
   return box(
     t,
-    { title: "Roadmap", icon: iconTile(icons.flag({ size: 16, color: t.accent }), t.accent, t), count: total },
+    { title: "Roadmap", icon: iconTile(icons.flag!({ size: 16, color: t.accent }), t.accent, t), count: total },
     hbox(
       { gap: 11, width: "100%", alignItems: "stretch" },
       ...present.map((c) => column(t, c.label, t.status[c.status], cfg.roadmap[c.key]))

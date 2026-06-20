@@ -1,8 +1,17 @@
 // Inline SVG icons. Satori renders svg/path nodes directly, so each icon is a
 // plain element tree. `d` paths are 24x24 (lucide-style), recolored via stroke.
-import { h } from "./h.js";
+import { h } from "./h";
+import type { El } from "./types";
 
-function icon(paths, { size = 18, color = "currentColor", fill = "none", strokeWidth = 2 } = {}) {
+interface IconOpts {
+  size?: number;
+  color?: string;
+  fill?: string;
+  strokeWidth?: number;
+}
+
+function icon(paths: string[], o: IconOpts = {}): El {
+  const { size = 18, color = "currentColor", fill = "none", strokeWidth = 2 } = o;
   return {
     type: "svg",
     props: {
@@ -19,7 +28,9 @@ function icon(paths, { size = 18, color = "currentColor", fill = "none", strokeW
   };
 }
 
-export const icons = {
+type Icon = (o?: IconOpts) => El;
+
+export const icons: Record<string, Icon> = {
   repo: (o) => icon(["M3 3h12l6 6v12H3z", "M15 3v6h6"], o),
   globe: (o) => icon(["M12 2a10 10 0 100 20 10 10 0 000-20", "M2 12h20", "M12 2a15 15 0 010 20 15 15 0 010-20"], o),
   docs: (o) => icon(["M4 4h11l5 5v11H4z", "M14 4v5h5", "M8 13h8", "M8 17h8"], o),
