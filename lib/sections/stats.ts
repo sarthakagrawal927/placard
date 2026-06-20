@@ -2,6 +2,7 @@ import { h, vbox, hbox, text } from "../h.js";
 import { box, dot, iconTile } from "../ui.js";
 import { icons } from "../icons.js";
 import { langColor } from "../langcolors.js";
+import { sparklineDataUrl } from "../graph.js";
 import type { El, Theme } from "../types.js";
 import type { RepoStats } from "../github.js";
 
@@ -31,13 +32,23 @@ const metric = (t: Theme, icon: El, value: string, label: string): El =>
     )
   );
 
-export function stats(t: Theme, s: RepoStats): El {
+export function stats(t: Theme, s: RepoStats, activity: number[] | null = null): El {
   const metrics: El[] = [
     metric(t, icons.star!({ size: 17, color: t.status.todo }), fmt(s.stars), "stars"),
     metric(t, icons.fork!({ size: 16, color: t.muted }), fmt(s.forks), "forks"),
     metric(t, icons.issue!({ size: 16, color: t.status.done }), fmt(s.issues), "issues"),
   ];
   if (s.pushedAt) metrics.push(metric(t, icons.clock!({ size: 16, color: t.muted }), ago(s.pushedAt), "updated"));
+
+  // Commit-activity sparkline (canvas), right-aligned in the metric row.
+  const spark = activity ? sparklineDataUrl(t, activity, 260, 44) : null;
+  const sparkEl = spark
+    ? vbox(
+        { alignItems: "flex-end", gap: 3, marginLeft: "auto" },
+        h("img", { src: spark, width: 260, height: 44, style: { display: "flex" } }),
+        text("commits / week", { fontSize: 11.5, color: t.subtle })
+      )
+    : null;
 
   const langs = s.languages;
   const bar =
@@ -67,7 +78,7 @@ export function stats(t: Theme, s: RepoStats): El {
   return box(
     t,
     { title: "Repository", icon: iconTile(icons.repo!({ size: 16, color: t.accent }), t.accent, t) },
-    hbox({ gap: 26, flexWrap: "wrap", alignItems: "center" }, ...metrics),
+    hbox({ gap: 26, flexWrap: "wrap", alignItems: "center", width: "100%" }, ...metrics, sparkEl),
     bar
   );
 }

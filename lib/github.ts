@@ -61,3 +61,18 @@ export async function fetchRepoStats(owner: string, repo: string): Promise<RepoS
 }
 
 const num = (v: unknown): number => (typeof v === "number" ? v : 0);
+
+// Weekly commit totals (last ~year) for the sparkline. Returns null on 202
+// ("computing"), empty, or error — sparkline is then skipped.
+export async function fetchCommitActivity(owner: string, repo: string): Promise<number[] | null> {
+  try {
+    const res = await fetch(`${API}/repos/${owner}/${repo}/stats/commit_activity`, { headers });
+    if (!res.ok) return null;
+    const data = (await res.json()) as { total?: number }[];
+    if (!Array.isArray(data) || data.length === 0) return null;
+    const weeks = data.map((w) => num(w.total));
+    return weeks.some((n) => n > 0) ? weeks.slice(-30) : null;
+  } catch {
+    return null;
+  }
+}

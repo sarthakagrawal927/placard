@@ -64,7 +64,11 @@ One image shows the whole project at a glance: what it is and why, build timelin
 
 **Live GitHub stats:** when your `project.json` has a `links.repo` (or a
 `github: "owner/repo"` field), the card adds a Repository section with
-stars / forks / issues and a language bar, pulled live from the GitHub API.
+stars / forks / issues, a language bar, and a commit-activity sparkline —
+pulled live from the GitHub API.
+
+**Dependency graph:** set `"graph": true` (or `?graph=1`) to render the
+dependencies as a canvas-drawn hub-and-spoke graph instead of chips.
 
 **Playground:** edit a config and copy an embed at
 [placard-coral.vercel.app](https://placard-coral.vercel.app).

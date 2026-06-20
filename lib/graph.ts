@@ -119,6 +119,45 @@ export function dependencyGraphDataUrl(t: Theme, cfg: ProjectConfig, width: numb
   return canvas.toDataURL("image/png");
 }
 
+// Small area sparkline of weekly commit counts, as a PNG data-URI.
+export function sparklineDataUrl(t: Theme, values: number[], width = 280, height = 46): string | null {
+  if (!values.length) return null;
+  const S = 2;
+  const canvas = createCanvas(width * S, height * S);
+  const ctx = canvas.getContext("2d");
+  ctx.scale(S, S);
+
+  const max = Math.max(1, ...values);
+  const n = values.length;
+  const pad = 3;
+  const xy = (i: number, v: number): [number, number] => [
+    n === 1 ? width / 2 : (i / (n - 1)) * width,
+    height - pad - (v / max) * (height - pad * 2),
+  ];
+
+  // filled area
+  ctx.beginPath();
+  ctx.moveTo(0, height);
+  values.forEach((v, i) => ctx.lineTo(...xy(i, v)));
+  ctx.lineTo(width, height);
+  ctx.closePath();
+  const grad = ctx.createLinearGradient(0, 0, 0, height);
+  grad.addColorStop(0, hexA(t.accent, 0.32));
+  grad.addColorStop(1, hexA(t.accent, 0));
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // line
+  ctx.beginPath();
+  values.forEach((v, i) => (i ? ctx.lineTo(...xy(i, v)) : ctx.moveTo(...xy(i, v))));
+  ctx.strokeStyle = t.accent;
+  ctx.lineWidth = 1.75;
+  ctx.lineJoin = "round";
+  ctx.stroke();
+
+  return canvas.toDataURL("image/png");
+}
+
 // Append alpha to a #rrggbb hex.
 function hexA(hex: string, alpha: number): string {
   const a = Math.round(alpha * 255).toString(16).padStart(2, "0");

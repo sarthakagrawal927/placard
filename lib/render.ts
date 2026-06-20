@@ -6,7 +6,7 @@ import { loadFonts } from "./fonts.js";
 import { twoCol } from "./ui.js";
 import { header } from "./sections/header.js";
 import { stats as statsSection } from "./sections/stats.js";
-import { fetchRepoStats, type RepoStats } from "./github.js";
+import { fetchRepoStats, fetchCommitActivity, type RepoStats } from "./github.js";
 import { animateSvg } from "./animate.js";
 import { dependencies, dependenciesGraph } from "./sections/dependencies.js";
 import { timeline } from "./sections/timeline.js";
@@ -20,7 +20,14 @@ type SatoriFonts = Parameters<typeof satori>[1]["fonts"];
 
 const PAD = 4; // tiny inset so 1px panel borders aren't clipped at the image edge
 
-function buildTree(t: Theme, cfg: ProjectConfig, width: number, repoStats: RepoStats | null, graph: boolean): El {
+function buildTree(
+  t: Theme,
+  cfg: ProjectConfig,
+  width: number,
+  repoStats: RepoStats | null,
+  activity: number[] | null,
+  graph: boolean
+): El {
   const prods = products(t, cfg);
 
   // Graph mode: full-width dependency graph + full-width products.
@@ -34,7 +41,7 @@ function buildTree(t: Theme, cfg: ProjectConfig, width: number, repoStats: RepoS
 
   const sections = [
     header(t, cfg),
-    repoStats ? statsSection(t, repoStats) : null,
+    repoStats ? statsSection(t, repoStats, activity) : null,
     timeline(t, cfg),
     ...depBlocks,
     features(t, cfg),
@@ -60,8 +67,14 @@ export async function renderCard(cfg: ProjectConfig, opts: RenderOpts = {}): Pro
   // theme.mode is only the default when no mode is requested.
   const finalMode = mode || cfg.theme.mode || "dark";
   const t = resolveTheme(finalMode, cfg.theme.accent);
-  const repoStats = cfg.stats && cfg.github ? await fetchRepoStats(cfg.github.owner, cfg.github.repo) : null;
-  const tree = buildTree(t, cfg, width, repoStats, graph || cfg.graph);
+  const [repoStats, activity] =
+    cfg.stats && cfg.github
+      ? await Promise.all([
+          fetchRepoStats(cfg.github.owner, cfg.github.repo),
+          fetchCommitActivity(cfg.github.owner, cfg.github.repo),
+        ])
+      : [null, null];
+  const tree = buildTree(t, cfg, width, repoStats, activity, graph || cfg.graph);
   const fonts = await loadFonts();
   const svg = await satori(tree as unknown as SatoriNode, { width, fonts: fonts as unknown as SatoriFonts });
 
