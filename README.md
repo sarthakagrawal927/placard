@@ -9,9 +9,9 @@ One image shows the whole project at a glance: what it is and why, build timelin
   <a href="https://placard-coral.vercel.app">
     <picture>
       <source media="(prefers-color-scheme: light)"
-              srcset="https://placard-coral.vercel.app/api/card?src=https://raw.githubusercontent.com/sarthakagrawal927/placard/main/project.json&theme=light&v=6">
+              srcset="https://placard-coral.vercel.app/api/card?src=https://raw.githubusercontent.com/sarthakagrawal927/placard/main/project.json&theme=light&v=7">
       <img alt="placard project card"
-           src="https://placard-coral.vercel.app/api/card?src=https://raw.githubusercontent.com/sarthakagrawal927/placard/main/project.json&theme=dark&v=6">
+           src="https://placard-coral.vercel.app/api/card?src=https://raw.githubusercontent.com/sarthakagrawal927/placard/main/project.json&theme=dark&v=7">
     </picture>
   </a>
 </p>
@@ -55,10 +55,19 @@ One image shows the whole project at a glance: what it is and why, build timelin
 
 | Param | Values | Default | Notes |
 |-------|--------|---------|-------|
-| `src` | raw https URL | — | **Required.** Points at your `project.json`. |
+| `src` | raw https URL | — | Points at your `project.json` (or use `data`). |
+| `data` | base64 JSON | — | Inline config — self-contained embed, no file hosting. |
 | `theme` | `dark` \| `light` | project's `theme.mode`, else `dark` | An explicit value wins (needed for `<picture>`). |
 | `format` | `png` \| `svg` | `png` | PNG is recommended for GitHub. |
+| `animate` | `1` | off | Animated SVG (fade-in + sheen). Implies `format=svg`. |
 | `width` | `600`–`1600` | `1100` | Card width in px. |
+
+**Live GitHub stats:** when your `project.json` has a `links.repo` (or a
+`github: "owner/repo"` field), the card adds a Repository section with
+stars / forks / issues and a language bar, pulled live from the GitHub API.
+
+**Playground:** edit a config and copy an embed at
+[placard-coral.vercel.app](https://placard-coral.vercel.app).
 
 ## project.json
 

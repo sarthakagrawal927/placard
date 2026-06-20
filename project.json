@@ -13,30 +13,33 @@
   "timeline": [
     { "date": "2026-06", "label": "Render pipeline", "note": "satori · PNG" },
     { "date": "2026-06", "label": "All sections", "note": "6 section renderers" },
-    { "date": "2026-06", "label": "Dogfood", "note": "self-rendered card" },
-    { "date": "soon", "label": "Deploy", "note": "Vercel prod", "done": false }
+    { "date": "2026-06", "label": "Deploy", "note": "Vercel prod" },
+    { "date": "2026-06", "label": "Live + playground", "note": "stats, animation" }
   ],
   "products": [
-    { "name": "/api/card", "desc": "Serverless endpoint — project.json to PNG/SVG card", "status": "ready" },
+    { "name": "/api/card", "desc": "Serverless endpoint — project.json to PNG/SVG card", "status": "live" },
+    { "name": "Playground", "desc": "Edit config live, copy a self-contained embed", "status": "live" },
     { "name": "project.json schema", "desc": "JSON Schema for the card config" },
     { "name": "render-local", "desc": "CLI to preview cards without deploying" }
   ],
   "features": [
     { "label": "satori-rendered PNG", "note": "real font metrics, no text overflow" },
-    { "label": "Six sections", "note": "header, timeline, deps, products, shipped, roadmap" },
+    { "label": "Live GitHub stats + language bar", "note": "stars, forks, issues, languages" },
+    { "label": "Animated SVG mode", "note": "?animate=1 — fade-in + ambient sheen" },
+    { "label": "Interactive playground", "note": "live preview, copy embed" },
+    { "label": "Self-contained ?data= embeds", "note": "no file hosting needed" },
     { "label": "Dark / light via <picture>" },
-    { "label": "PNG (default) and SVG output" },
     { "label": "Graceful error cards (served 200 so they render)" },
     { "label": "Accent color override per project" }
   ],
   "roadmap": {
     "planned": [
-      { "label": "Live data from project APIs" },
-      { "label": "GitHub Action to regenerate on push" }
+      { "label": "GitHub Action to regenerate on push" },
+      { "label": "Contributor avatars" }
     ],
     "todo": [
-      { "label": "Deploy to Vercel prod" },
-      { "label": "Named theme presets" }
+      { "label": "Named theme presets" },
+      { "label": "Shrink PNG payload size" }
     ],
     "deferred": [
       { "label": "True dependency-graph viz", "note": "chips are more scannable at README scale" }
