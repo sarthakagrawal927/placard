@@ -6,18 +6,18 @@ One image shows the whole project at a glance: what it is and why, build timelin
 
 <!-- placard renders its own card, from project.json in this repo (live once deployed) -->
 <p align="center">
-  <a href="https://placard.vercel.app">
+  <a href="https://placard-coral.vercel.app">
     <picture>
       <source media="(prefers-color-scheme: light)"
-              srcset="https://placard.vercel.app/api/card?src=https://raw.githubusercontent.com/sarthakagrawal927/placard/main/project.json&theme=light">
+              srcset="https://placard-coral.vercel.app/api/card?src=https://raw.githubusercontent.com/sarthakagrawal927/placard/main/project.json&theme=light">
       <img alt="placard project card"
-           src="https://placard.vercel.app/api/card?src=https://raw.githubusercontent.com/sarthakagrawal927/placard/main/project.json&theme=dark">
+           src="https://placard-coral.vercel.app/api/card?src=https://raw.githubusercontent.com/sarthakagrawal927/placard/main/project.json&theme=dark">
     </picture>
   </a>
 </p>
 
 ```md
-![project card](https://placard.vercel.app/api/card?src=https://raw.githubusercontent.com/you/repo/main/project.json)
+![project card](https://placard-coral.vercel.app/api/card?src=https://raw.githubusercontent.com/you/repo/main/project.json)
 ```
 
 > Built the same way as a shields.io badge — a serverless endpoint returns an image — but it renders a full multi-section card. Powered by [satori](https://github.com/vercel/satori) (real font metrics → no text overflow) and rendered to **PNG**, which always renders on GitHub (no Camo SVG-sanitization surprises).
@@ -32,23 +32,23 @@ One image shows the whole project at a glance: what it is and why, build timelin
 
 **Basic:**
 ```md
-![project](https://placard.vercel.app/api/card?src=<RAW_JSON_URL>)
+![project](https://placard-coral.vercel.app/api/card?src=<RAW_JSON_URL>)
 ```
 
 **Dark / light automatic** (GitHub picks based on the viewer's theme):
 ```html
 <picture>
   <source media="(prefers-color-scheme: dark)"
-          srcset="https://placard.vercel.app/api/card?src=<RAW_JSON_URL>&theme=dark">
+          srcset="https://placard-coral.vercel.app/api/card?src=<RAW_JSON_URL>&theme=dark">
   <source media="(prefers-color-scheme: light)"
-          srcset="https://placard.vercel.app/api/card?src=<RAW_JSON_URL>&theme=light">
-  <img alt="project card" src="https://placard.vercel.app/api/card?src=<RAW_JSON_URL>">
+          srcset="https://placard-coral.vercel.app/api/card?src=<RAW_JSON_URL>&theme=light">
+  <img alt="project card" src="https://placard-coral.vercel.app/api/card?src=<RAW_JSON_URL>">
 </picture>
 ```
 
 **Click-through** (the static card becomes a link to your live dashboard/site):
 ```md
-[![project](https://placard.vercel.app/api/card?src=<RAW_JSON_URL>)](https://your-site.com)
+[![project](https://placard-coral.vercel.app/api/card?src=<RAW_JSON_URL>)](https://your-site.com)
 ```
 
 ## Query parameters

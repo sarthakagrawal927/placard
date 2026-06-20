@@ -4,7 +4,7 @@
   "why": "Render a project.json into a beautiful, embeddable project-overview card for any GitHub README — the \"much larger\" sibling of a status badge. One image shows what a project is and why, its timeline, dependencies, products, shipped work, and roadmap board.",
   "links": {
     "repo": "https://github.com/sarthakagrawal927/placard",
-    "site": "https://placard.vercel.app"
+    "site": "https://placard-coral.vercel.app"
   },
   "theme": { "accent": "#58a6ff", "mode": "dark" },
   "dependencies": {
