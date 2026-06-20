@@ -1,6 +1,6 @@
 // Reusable building blocks styled to read as native GitHub surfaces.
 import { h, vbox, hbox, text } from "./h.js";
-import { FONT_FAMILY, tint } from "./theme.js";
+import { FONT_FAMILY, DISPLAY_FAMILY, tint } from "./theme.js";
 import type { El, Theme } from "./types.js";
 
 type Child = El | string | null | undefined | false;
@@ -27,7 +27,7 @@ export function box(t: Theme, { title, icon, count }: BoxOpts = {}, ...children:
       hbox(
         { alignItems: "center", gap: 9 },
         icon || null,
-        text(title, { fontSize: 14, fontWeight: 600, color: t.text, letterSpacing: 0.1 })
+        text(title, { fontFamily: DISPLAY_FAMILY, fontSize: 15, fontWeight: 700, color: t.text, letterSpacing: 0.2 })
       ),
       count != null ? countPill(t, count) : null
     );
@@ -99,6 +99,7 @@ export function iconTile(icon: El, color: string, t: Theme): El {
       borderRadius: 8,
       background: tint(color, t.mode === "light" ? 0.12 : 0.18),
       border: `1px solid ${tint(color, 0.25)}`,
+      ...(t.glow ? { boxShadow: `0 0 12px ${tint(color, 0.45)}` } : {}),
     },
     icon
   );

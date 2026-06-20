@@ -3,6 +3,7 @@ import { box, dot, iconTile } from "../ui.js";
 import { icons } from "../icons.js";
 import { langColor } from "../langcolors.js";
 import { sparklineDataUrl } from "../graph.js";
+import { DISPLAY_FAMILY } from "../theme.js";
 import type { El, Theme } from "../types.js";
 import type { RepoStats } from "../github.js";
 
@@ -27,7 +28,7 @@ const metric = (t: Theme, icon: El, value: string, label: string): El =>
     icon,
     hbox(
       { alignItems: "baseline", gap: 5 },
-      text(value, { fontSize: 17, fontWeight: 700, color: t.text }),
+      text(value, { fontFamily: DISPLAY_FAMILY, fontSize: 19, fontWeight: 700, color: t.text }),
       text(label, { fontSize: 13, color: t.muted })
     )
   );

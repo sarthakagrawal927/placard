@@ -7,7 +7,7 @@ export function products(t: Theme, cfg: ProjectConfig): El | null {
   if (!cfg.products.length) return null;
   return box(
     t,
-    { title: "Products", icon: iconTile(icons.layers!({ size: 16, color: t.accent }), t.accent, t), count: cfg.products.length },
+    { title: "Products", icon: iconTile(icons.layers!({ size: 16, color: t.status.todo }), t.status.todo, t), count: cfg.products.length },
     vbox(
       { gap: 7 },
       ...cfg.products.map((p) =>

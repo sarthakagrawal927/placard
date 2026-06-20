@@ -10,13 +10,16 @@ export interface FontData {
   style: "normal";
 }
 
-// Inter weights satori will use. Files are bundled in assets/fonts (see
-// scripts/download-fonts.ts). Loaded once per process (warm function reuse).
-const FILES: { file: string; weight: number }[] = [
-  { file: "Inter-400.woff", weight: 400 },
-  { file: "Inter-600.woff", weight: 600 },
-  { file: "Inter-700.woff", weight: 700 },
-  { file: "Inter-800.woff", weight: 800 },
+// Fonts satori uses (Inter = body, Hanken Grotesk = display). Bundled in
+// assets/fonts (see scripts/download-fonts.ts). Loaded once per process.
+const FILES: { file: string; weight: number; name: string }[] = [
+  { file: "Inter-400.woff", weight: 400, name: "Inter" },
+  { file: "Inter-600.woff", weight: 600, name: "Inter" },
+  { file: "Inter-700.woff", weight: 700, name: "Inter" },
+  { file: "Inter-800.woff", weight: 800, name: "Inter" },
+  { file: "Hanken-600.woff", weight: 600, name: "Hanken Grotesk" },
+  { file: "Hanken-700.woff", weight: 700, name: "Hanken Grotesk" },
+  { file: "Hanken-800.woff", weight: 800, name: "Hanken Grotesk" },
 ];
 
 // Resolve assets/fonts robustly. When run locally the path is relative to this
@@ -38,8 +41,8 @@ export async function loadFonts(): Promise<FontData[]> {
   if (cache) return cache;
   const dir = fontsDir();
   cache = await Promise.all(
-    FILES.map(async ({ file, weight }) => ({
-      name: "Inter",
+    FILES.map(async ({ file, weight, name }) => ({
+      name,
       data: await readFile(join(dir, file)),
       weight,
       style: "normal" as const,

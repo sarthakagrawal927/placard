@@ -100,3 +100,4 @@ export function resolveTheme(mode: ThemeMode = "dark", accent?: string): Theme {
 }
 
 export const FONT_FAMILY = "Inter";
+export const DISPLAY_FAMILY = "Hanken Grotesk";

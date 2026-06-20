@@ -1,5 +1,5 @@
 import { h, vbox, hbox, text } from "../h.js";
-import { tint } from "../theme.js";
+import { tint, DISPLAY_FAMILY } from "../theme.js";
 import { icons } from "../icons.js";
 import type { El, ProjectConfig, Theme } from "../types.js";
 
@@ -30,8 +30,9 @@ export function header(t: Theme, cfg: ProjectConfig): El {
       backgroundImage: `linear-gradient(135deg, ${tint(t.accent, 0.28)}, ${tint(t.accent, 0.08)})`,
       border: `1px solid ${tint(t.accent, 0.45)}`,
       flexShrink: 0,
+      ...(t.glow ? { boxShadow: `0 0 20px ${tint(t.accent, 0.4)}` } : {}),
     },
-    text(initial, { fontSize: 27, fontWeight: 800, color: t.accent })
+    text(initial, { fontFamily: DISPLAY_FAMILY, fontSize: 27, fontWeight: 800, color: t.accent })
   );
 
   // Soft accent aura behind the title — a premium hero touch that still fades
@@ -69,7 +70,7 @@ export function header(t: Theme, cfg: ProjectConfig): El {
         monogram,
         vbox(
           { gap: 2, flexGrow: 1, minWidth: 0 },
-          text(cfg.name, { fontSize: 37, fontWeight: 800, color: t.text, letterSpacing: -1, lineHeight: 1.05 }),
+          text(cfg.name, { fontFamily: DISPLAY_FAMILY, fontSize: 38, fontWeight: 800, color: t.text, letterSpacing: -1, lineHeight: 1.02 }),
           cfg.tagline ? text(cfg.tagline, { fontSize: 16, fontWeight: 600, color: t.accent }) : null
         )
       ),
