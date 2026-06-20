@@ -85,6 +85,7 @@ export function iconTile(icon: El, color: string, t: Theme): El {
       height: 28,
       borderRadius: 8,
       background: tint(color, t.mode === "light" ? 0.12 : 0.18),
+      border: `1px solid ${tint(color, 0.25)}`,
     },
     icon
   );

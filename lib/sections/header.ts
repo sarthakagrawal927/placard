@@ -35,7 +35,7 @@ export function header(t: Theme, cfg: ProjectConfig): El {
   );
 
   return vbox(
-    { gap: 13 },
+    { gap: 13, paddingBottom: 16, borderBottom: `1px solid ${t.borderMuted}` },
     hbox(
       { alignItems: "center", gap: 15 },
       monogram,

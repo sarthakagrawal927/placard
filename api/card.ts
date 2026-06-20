@@ -18,8 +18,10 @@ export default async function handler(req: Req, res: Res): Promise<void> {
     const cfg = await loadConfig(q.get("src"));
     const { body, contentType } = await renderCard(cfg, { mode, width, format });
     res.setHeader("Content-Type", contentType);
-    // Camo caches aggressively; keep edge fresh-ish without hammering the source.
-    res.setHeader("Cache-Control", "public, max-age=300, s-maxage=300, stale-while-revalidate=86400");
+    // TODO: while iterating, no caching so README updates appear immediately.
+    // Restore something like `public, max-age=300, s-maxage=300,
+    // stale-while-revalidate=86400` once the design settles.
+    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate, max-age=0");
     res.status(200).send(body);
   } catch (err) {
     const isCfg = err instanceof ConfigError;

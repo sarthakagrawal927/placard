@@ -33,6 +33,9 @@ export function timeline(t: Theme, cfg: ProjectConfig): El | null {
     );
   };
 
+  // Rail spans exactly first-node-center to last-node-center: each of N equal
+  // columns centers its node at (i+0.5)/N, so the ends sit at 50/N % from each side.
+  const inset = `${50 / items.length}%`;
   const rail = h(
     "div",
     { style: { display: "flex", position: "relative", width: "100%", paddingTop: 2 } },
@@ -41,8 +44,8 @@ export function timeline(t: Theme, cfg: ProjectConfig): El | null {
         display: "flex",
         position: "absolute",
         top: 35,
-        left: 30,
-        right: 30,
+        left: inset,
+        right: inset,
         height: 2,
         borderRadius: 2,
         backgroundImage: `linear-gradient(90deg, ${t.status.done}, ${t.accent})`,
