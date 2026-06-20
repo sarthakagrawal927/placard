@@ -35,6 +35,7 @@ export interface ProjectConfig {
   links: { repo: string; site: string; docs: string };
   github: { owner: string; repo: string } | null;
   stats: boolean;
+  graph: boolean;
   theme: { accent: string; mode: ThemeMode | undefined };
   dependencies: { external: Item[]; internal: Item[] };
   timeline: TimelineEntry[];
@@ -81,6 +82,7 @@ export interface RenderOpts {
   scale?: number;
   bg?: string;
   animate?: boolean;
+  graph?: boolean;
 }
 
 export interface Rendered {

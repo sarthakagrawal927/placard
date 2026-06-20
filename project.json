@@ -7,8 +7,9 @@
     "site": "https://placard-coral.vercel.app"
   },
   "theme": { "accent": "#58a6ff", "mode": "dark" },
+  "graph": true,
   "dependencies": {
-    "external": ["satori", "@resvg/resvg-js", "Vercel", "Inter"]
+    "external": ["satori", "@resvg/resvg-js", "@napi-rs/canvas", "Vercel", "Inter"]
   },
   "timeline": [
     { "date": "2026-06", "label": "Render pipeline", "note": "satori · PNG" },

@@ -8,6 +8,7 @@
     "docs": "https://docs.sassmaker.com"
   },
   "theme": { "accent": "#58a6ff", "mode": "dark" },
+  "graph": true,
   "dependencies": {
     "external": [
       "Cloudflare Workers",

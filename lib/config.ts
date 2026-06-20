@@ -88,6 +88,7 @@ export function normalize(input: unknown): ProjectConfig {
     },
     github: parseRepo(str(raw.github) || str(links.repo)),
     stats: raw.stats !== false,
+    graph: raw.graph === true,
     theme: { accent: str(t.accent), mode },
     dependencies: { external: asList(deps.external), internal: asList(deps.internal) },
     timeline: Array.isArray(raw.timeline)

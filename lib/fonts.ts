@@ -22,7 +22,7 @@ const FILES: { file: string; weight: number }[] = [
 // Resolve assets/fonts robustly. When run locally the path is relative to this
 // file; on Vercel the .ts function is bundled (import.meta.url moves) and
 // includeFiles drops the fonts at the task root (process.cwd()).
-function fontsDir(): string {
+export function fontsDir(): string {
   const here = dirname(fileURLToPath(import.meta.url));
   const candidates = [
     join(process.cwd(), "assets", "fonts"),

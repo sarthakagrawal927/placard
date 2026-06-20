@@ -10,6 +10,7 @@ export default async function handler(req: Req, res: Res): Promise<void> {
   const q = url.searchParams;
   // animate implies SVG (PNG can't carry declarative animation).
   const animate = q.get("animate") === "1";
+  const graph = q.get("graph") === "1";
   const format: Format = animate || q.get("format") === "svg" ? "svg" : "png";
   const themeParam = q.get("theme");
   // undefined => fall back to the project's configured default mode
@@ -19,7 +20,7 @@ export default async function handler(req: Req, res: Res): Promise<void> {
   try {
     const data = q.get("data");
     const cfg = data ? loadConfigFromData(data) : await loadConfig(q.get("src"));
-    const { body, contentType } = await renderCard(cfg, { mode, width, format, animate });
+    const { body, contentType } = await renderCard(cfg, { mode, width, format, animate, graph });
     res.setHeader("Content-Type", contentType);
     // Cache hard at the edge for speed; bump the embed's &v= param to force a
     // fresh render during iteration (changes the URL -> new cache key + new Camo).

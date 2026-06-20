@@ -8,7 +8,7 @@ import { header } from "./sections/header.js";
 import { stats as statsSection } from "./sections/stats.js";
 import { fetchRepoStats, type RepoStats } from "./github.js";
 import { animateSvg } from "./animate.js";
-import { dependencies } from "./sections/dependencies.js";
+import { dependencies, dependenciesGraph } from "./sections/dependencies.js";
 import { timeline } from "./sections/timeline.js";
 import { products } from "./sections/products.js";
 import { features } from "./sections/features.js";
@@ -20,18 +20,23 @@ type SatoriFonts = Parameters<typeof satori>[1]["fonts"];
 
 const PAD = 4; // tiny inset so 1px panel borders aren't clipped at the image edge
 
-function buildTree(t: Theme, cfg: ProjectConfig, width: number, repoStats: RepoStats | null): El {
-  const deps = dependencies(t, cfg);
+function buildTree(t: Theme, cfg: ProjectConfig, width: number, repoStats: RepoStats | null, graph: boolean): El {
   const prods = products(t, cfg);
 
-  // dependencies + products share a row when both exist; otherwise full width.
-  const depRow = deps && prods ? twoCol(deps, prods) : deps || prods;
+  // Graph mode: full-width dependency graph + full-width products.
+  // Default: dependencies (chips) and products share a two-column row.
+  const depBlocks: (El | null)[] = graph
+    ? [dependenciesGraph(t, cfg, width - 2 * PAD - 2 - 36), prods]
+    : (() => {
+        const deps = dependencies(t, cfg);
+        return [deps && prods ? twoCol(deps, prods) : deps || prods];
+      })();
 
   const sections = [
     header(t, cfg),
     repoStats ? statsSection(t, repoStats) : null,
     timeline(t, cfg),
-    depRow,
+    ...depBlocks,
     features(t, cfg),
     roadmap(t, cfg),
   ].filter((s): s is El => Boolean(s));
@@ -50,13 +55,13 @@ function buildTree(t: Theme, cfg: ProjectConfig, width: number, repoStats: RepoS
 }
 
 export async function renderCard(cfg: ProjectConfig, opts: RenderOpts = {}): Promise<Rendered> {
-  const { mode, width = 1100, format = "png", scale = 2, bg, animate = false } = opts;
+  const { mode, width = 1100, format = "png", scale = 2, bg, animate = false, graph = false } = opts;
   // Explicit request (?theme=) wins so <picture> dark/light works; config
   // theme.mode is only the default when no mode is requested.
   const finalMode = mode || cfg.theme.mode || "dark";
   const t = resolveTheme(finalMode, cfg.theme.accent);
   const repoStats = cfg.stats && cfg.github ? await fetchRepoStats(cfg.github.owner, cfg.github.repo) : null;
-  const tree = buildTree(t, cfg, width, repoStats);
+  const tree = buildTree(t, cfg, width, repoStats, graph || cfg.graph);
   const fonts = await loadFonts();
   const svg = await satori(tree as unknown as SatoriNode, { width, fonts: fonts as unknown as SatoriFonts });
 
